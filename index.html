@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>ঘুরবো বাংলাদেশ 🇧🇩</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body>
+<header class="topbar"><div class="brand">🇧🇩 <span>ঘুরবো বাংলাদেশ</span></div><nav><a href="#home">হোম</a><a href="#explore">Explore</a><a href="#profile">Profile</a><button id="logoutBtn" class="ghost hidden">Logout</button></nav></header>
+<main>
+<section id="home" class="hero"><div><p class="eyebrow">বাংলাদেশ ঘুরুন • পয়েন্ট সংগ্রহ করুন • সবার সাথে প্রতিযোগিতা করুন</p><h1>আপনার ভ্রমণ, আপনার স্কোর।</h1><p>বাংলাদেশের জনপ্রিয় স্থানগুলো ঘুরে Check-in করুন, Point অর্জন করুন এবং Leaderboard-এ এগিয়ে যান।</p><div class="actions"><button class="primary" onclick="showAuth('register')">Account তৈরি করুন</button><button class="secondary" onclick="showAuth('login')">Login</button></div></div><div class="hero-card"><div class="flag">🇧🇩</div><b>সর্বোচ্চ স্কোর</b><strong>100 / 100</strong><small>৩০০টি স্থান সম্পন্ন করলে</small></div></section>
+<section id="auth" class="panel hidden"><div class="panel-head"><h2 id="authTitle">Login</h2><button class="x" onclick="hideAuth()">×</button></div><form id="authForm"><div id="nameWrap" class="field hidden"><label>আপনার নাম</label><input id="name" autocomplete="name" /></div><div class="field"><label>Email</label><input id="email" type="email" required autocomplete="email" /></div><div class="field"><label>Password</label><input id="password" type="password" minlength="8" required autocomplete="current-password" /></div><button class="primary wide" id="authSubmit">Login</button><p id="authMsg" class="msg"></p></form></section>
+<section id="dashboard" class="dashboard hidden"><div class="welcome"><div><p class="eyebrow">আপনার Dashboard</p><h2>স্বাগতম, <span id="userName">Traveler</span> 👋</h2></div><div class="score"><small>আপনার Point</small><strong id="userPoints">0.00</strong><span>/ 100</span></div></div><div class="stats"><div><b id="visitedCount">0</b><span>Visited Places</span></div><div><b id="badgeCount">0</b><span>Badges</span></div><div><b>#—</b><span>Leaderboard</span></div></div></section>
+<section id="explore" class="section"><div class="section-head"><div><p class="eyebrow">Explore</p><h2>আপনার পরবর্তী গন্তব্য</h2></div><span class="pill">300 Places • Coming Soon</span></div><div class="place-grid"><article class="place"><div class="place-img">🏞️</div><h3>সাজেক ভ্যালি</h3><p>Category 1 • 0.74 Point</p><button class="secondary checkin" data-place="Sajek Valley" data-points="0.74">শিগগিরই চালু হবে</button></article><article class="place"><div class="place-img">🌊</div><h3>সাদাপাথর</h3><p>Category 2 • 0.56 Point</p><button class="secondary checkin" data-place="Sadapathor" data-points="0.56">শিগগিরই চালু হবে</button></article><article class="place"><div class="place-img">🌿</div><h3>রাতারগুল</h3><p>Category 3 • 0.37 Point</p><button class="secondary checkin" data-place="Ratargul" data-points="0.37">শিগগিরই চালু হবে</button></article></div></section>
+<section id="profile" class="section"><div class="profile-card"><div class="avatar">👤</div><div><p class="eyebrow">Profile</p><h2 id="profileName">Guest</h2><p id="profileEmail">Login করলে আপনার তথ্য এখানে দেখা যাবে।</p></div></div></section>
+</main><footer>© 2026 ঘুরবো বাংলাদেশ • Explore Bangladesh, One Place at a Time 🇧🇩</footer>
+<script src="app.js"></script>
+</body></html>
