@@ -161,3 +161,6 @@ footer {
     max-width: 100%;
   }
 }
+body {
+  background: yellow !important;
+}
