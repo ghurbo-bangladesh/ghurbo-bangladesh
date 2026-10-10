@@ -44,6 +44,108 @@
         grid-template-columns: repeat(2, minmax(0, 1fr));
       }
     }
+ /* মোবাইলের জন্য ছোট ও সুন্দর ডিজাইন */
+body {
+  font-size: 14px;
+}
+
+.topbar {
+  padding: 10px 4%;
+  gap: 8px;
+}
+
+.brand {
+  font-size: 17px;
+}
+
+.topbar nav a {
+  font-size: 12px;
+  padding: 6px 8px;
+}
+
+main {
+  width: 94%;
+  margin: 14px auto 24px;
+}
+
+.browse-head {
+  padding: 18px 15px;
+  border-radius: 15px;
+  margin-bottom: 14px;
+}
+
+.browse-head h1 {
+  font-size: 23px;
+  line-height: 1.4;
+}
+
+.browse-head p {
+  font-size: 13px;
+  margin-bottom: 0;
+}
+
+.section {
+  padding: 16px 12px;
+  border-radius: 15px;
+}
+
+.section-head {
+  margin-bottom: 15px;
+  gap: 8px;
+}
+
+.section-head h2 {
+  font-size: 19px;
+}
+
+.pill {
+  font-size: 11px;
+  padding: 5px 9px;
+}
+
+.district-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 9px;
+}
+
+.district-button {
+  min-width: 0;
+  padding: 12px 9px;
+  border-radius: 10px;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.back-link {
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.notice {
+  font-size: 13px;
+  padding: 11px;
+}
+
+footer {
+  padding: 18px 12px;
+  font-size: 12px;
+}
+
+@media (max-width: 360px) {
+  .brand {
+    font-size: 15px;
+  }
+
+  .browse-head h1 {
+    font-size: 21px;
+  }
+
+  .district-button {
+    font-size: 12px;
+    padding: 10px 7px;
+  }
+}
   </style>
 </head>
 <body>
