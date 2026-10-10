@@ -1,76 +1,163 @@
+
 * {
   box-sizing: border-box;
 }
 
+:root {
+  --green: #087443;
+  --dark-green: #075c36;
+  --light: #f3f8f4;
+  --text: #183528;
+  --white: #ffffff;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background: #f3f8f4;
-  color: #183528;
+  font-family: Arial, "Noto Sans Bengali", sans-serif;
+  background: var(--light);
+  color: var(--text);
+  line-height: 1.7;
+  overflow-wrap: break-word;
 }
 
 header {
-  background: #087443;
+  background: var(--green);
   color: white;
   padding: 24px 16px;
   text-align: center;
 }
 
 header h1 {
-  margin: 0 0 10px;
-  font-size: 30px;
-}
-
-header p {
-  margin: 0;
-  font-size: 16px;
+  margin: 0 0 12px;
+  font-size: clamp(24px, 5vw, 36px);
 }
 
 nav {
-  background: #075c36;
-  padding: 14px;
-  text-align: center;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  background: var(--dark-green);
+  padding: 12px;
 }
 
 nav a {
   color: white;
   text-decoration: none;
-  margin: 0 10px;
-  display: inline-block;
-  padding: 5px;
+  padding: 10px 16px;
+  border-radius: 10px;
+}
+
+nav a:hover {
+  background: var(--green);
 }
 
 main {
-  max-width: 1000px;
-  margin: 24px auto;
-  padding: 0 16px;
+  width: min(100% - 28px, 1000px);
+  margin: 28px auto;
 }
 
-.welcome {
+section,
+.welcome,
+.dashboard,
+.card,
+form {
   background: white;
-  padding: 28px 20px;
-  border-radius: 14px;
-  text-align: center;
-  box-shadow: 0 3px 12px #00000010;
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 22px;
+  box-shadow: 0 4px 16px #173b2810;
 }
 
-.welcome h2 {
-  color: #087443;
+h2 {
+  color: var(--green);
+  line-height: 1.4;
 }
 
-button {
-  background: #087443;
+button,
+input[type="submit"] {
+  background: var(--green);
   color: white;
-  border: none;
-  border-radius: 8px;
-  padding: 12px 20px;
+  border: 0;
+  border-radius: 10px;
+  padding: 12px 18px;
   font-size: 16px;
+  cursor: pointer;
+  max-width: 100%;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background: var(--dark-green);
+}
+
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  max-width: 100%;
+  padding: 12px;
+  margin: 6px 0 16px;
+  border: 1px solid #cbd5ce;
+  border-radius: 9px;
+  background: white;
+  color: var(--text);
+  font: inherit;
+}
+
+label {
+  display: block;
+  margin-top: 10px;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 12px;
 }
 
 footer {
-  background: #075c36;
+  background: var(--dark-green);
   color: white;
+  padding: 22px 16px;
   text-align: center;
-  padding: 18px;
-  margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+  header {
+    padding: 18px 12px;
+  }
+
+  nav {
+    gap: 4px;
+  }
+
+  nav a {
+    padding: 8px 10px;
+  }
+
+  main {
+    width: calc(100% - 24px);
+    margin: 18px auto;
+  }
+
+  section,
+  .welcome,
+  .dashboard,
+  .card,
+  form {
+    padding: 16px;
+    border-radius: 12px;
+  }
+
+  button,
+  input[type="submit"] {
+    max-width: 100%;
+  }
 }
