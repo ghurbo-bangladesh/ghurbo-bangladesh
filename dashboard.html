@@ -67,5 +67,32 @@
   </main>
 
   <footer>© 2026 ঘুরবো বাংলাদেশ 🇧🇩</footer>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+<script>
+const sb = window.supabase.createClient(
+  "https://hbllzgylzemdszsbetkl.supabase.co",
+  "আপনার app.js ফাইলে থাকা একই public anon key এখানে দিন"
+);
+
+async function loadDashboard() {
+  const { data, error } = await sb.auth.getUser();
+
+  if (error || !data.user) {
+    window.location.href = "./login.html";
+    return;
+  }
+
+  const user = data.user;
+  const name = user.user_metadata?.full_name || user.email.split("@")[0];
+
+  document.querySelector(".welcome h2").textContent =
+    "স্বাগতম, " + name + "!";
+
+  document.querySelector(".profile-card h2").textContent = name;
+  document.querySelector(".profile-card p").textContent = user.email;
+}
+
+loadDashboard();
+</script>
 </body>
 </html>
