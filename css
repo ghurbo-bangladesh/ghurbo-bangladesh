@@ -1,0 +1,190 @@
+/* ==========================================================================
+   ১. গ্লোবাল রিসেট এবং বেসিক স্টাইল (সহজে ব্যবহারের জন্য মার্জিন-প্যাডিং ঠিক করা)
+   ========================================================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; /* আধুনিক ও পঠনযোগ্য ফন্ট */
+    scroll-behavior: smooth;
+}
+
+:root {
+    /* কালার প্যালেট (চোখের জন্য আরামদায়ক ও মানানসই রং) */
+    --primary-color: #2563eb;       /* আকর্ষণীয় নীল রঙ (প্রধান বাটন ও লিঙ্কের জন্য) */
+    --secondary-color: #1e293b;     /* গাঢ় রঙ (হেডার এবং টেক্সটের জন্য) */
+    --accent-color: #f59e0b;        /* হাইলাইট বা ওয়ার্নিং কালার */
+    --bg-light: #f8fafc;            /* ওয়েবসাইটের মূল ব্যাকগ্রাউন্ড */
+    --bg-white: #ffffff;            /* কার্ড এবং সেকশনের ব্যাকগ্রাউন্ড */
+    --text-main: #334155;           /* মূল লেখার রঙ */
+    --text-muted: #64748b;          /* আবছা লেখার রঙ */
+    --border-color: #e2e8f0;        /* বর্ডার বা ডিভাইডার লাইন */
+    --transition: all 0.3s ease;    /* স্মুথ অ্যানিমেশনের জন্য */
+}
+
+body {
+    background-color: var(--bg-light);
+    color: var(--text-main);
+    line-height: 1.6;
+}
+
+/* ==========================================================================
+   ২. হেডার এবং নেভিগেশন বার (সহজে ব্রাউজ করার জন্য)
+   ========================================================================== */
+header {
+    background-color: var(--bg-white);
+    border-bottom: 1px solid var(--border-color);
+    position: sticky;
+    top: 0;
+    z-index: 1000; /* স্ক্রোল করার সময়ও মেনু উপরে থাকবে */
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem 2rem;
+}
+
+.logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-main);
+    font-weight: 500;
+    transition: var(--transition);
+}
+
+.nav-links a:hover {
+    color: var(--primary-color); /* মাউস নিলে রঙ পরিবর্তন হবে */
+}
+
+/* ==========================================================================
+   ৩. হিরো সেকশন (ওয়েবসাইটের প্রধান ব্যানার বা প্রথম দর্শন)
+   ========================================================================== */
+.hero {
+    background-color: var(--secondary-color);
+    color: var(--bg-white);
+    padding: 5rem 2rem;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+    font-weight: 800;
+}
+
+.hero p {
+    font-size: 1.15rem;
+    color: var(--text-muted);
+    max-width: 600px;
+    margin: 0 auto 2rem auto;
+}
+
+/* ==========================================================================
+   ৪. ইউনিভার্সাল বাটন (সহজে ক্লিক করার মতো বড় ও স্পষ্ট)
+   ========================================================================== */
+.btn {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: var(--transition);
+    border: none;
+}
+
+.btn-primary {
+    background-color: var(--primary-color);
+    color: var(--bg-white);
+}
+
+.btn-primary:hover {
+    background-color: #1d4ed8; /* হোভার করলে একটু গাঢ় হবে */
+    transform: translateY(-2px); /* হালকা উপরে উঠবে */
+    box-shadow: 0 4px 12px rgba(37, 99, 235, 0.2);
+}
+
+/* ==========================================================================
+   ৫. কার্ড লেআউট (প্রোডাক্ট বা সার্ভিস সুন্দরভাবে সাজানোর জন্য)
+   ========================================================================== */
+.container {
+    max-width: 1200px;
+    margin: 4rem auto;
+    padding: 0 2rem;
+}
+
+.grid-layout {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 15fr)); /* রেসপনসিভ গ্রিড */
+    gap: 2rem;
+}
+
+.card {
+    background-color: var(--bg-white);
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 2rem;
+    transition: var(--transition);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.05); /* চমৎকার শ্যাডো ইফেক্ট */
+}
+
+.card h3 {
+    margin-bottom: 0.5rem;
+    color: var(--secondary-color);
+}
+
+.card p {
+    color: var(--text-muted);
+    font-size: 0.95rem;
+}
+
+/* ==========================================================================
+   ৬. ফুটার (ওয়েবসাইটের নিচের অংশ)
+   ========================================================================== */
+footer {
+    background-color: var(--secondary-color);
+    color: var(--text-muted);
+    text-align: center;
+    padding: 2rem;
+    margin-top: 4rem;
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   ৭. মোবাইল রেসপনসিভ (যাতে মোবাইল ও ট্যাবলেটেও সুন্দর দেখায়)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .navbar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    
+    .nav-links {
+        gap: 1.5rem;
+    }
+
+    .hero h1 {
+        font-size: 2rem;
+    }
+}
