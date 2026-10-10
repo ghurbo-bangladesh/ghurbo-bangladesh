@@ -1,215 +1,142 @@
 <!doctype html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ঘুরবো বাংলাদেশ 🇧🇩</title>
-
-  <link rel="stylesheet" href="./style.css?v=2" />
-
+  <link rel="stylesheet" href="./style.css?v=3">
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
 </head>
-
 <body>
 
 <header class="topbar">
-  <div class="brand">🇧🇩 <span>ঘুরবো বাংলাদেশ</span></div>
-
+  <a class="brand" href="#home">🇧🇩 ঘুরবো বাংলাদেশ</a>
   <nav>
     <a href="#home">হোম</a>
-    <a href="./places.html">পর্যটনস্থল</a>
-    <a href="#profile">Profile</a>
+    <a href="#divisions">বিভাগসমূহ</a>
+    <a href="#points">পয়েন্ট নিয়ম</a>
+    <a href="#profile">আমার প্রোফাইল</a>
     <button id="logoutBtn" class="ghost hidden">Logout</button>
   </nav>
 </header>
 
 <main>
-
-  <!-- Home Section -->
   <section id="home" class="hero">
     <div>
-      <p class="eyebrow">
-        বাংলাদেশ ঘুরুন • পয়েন্ট সংগ্রহ করুন • সবার সাথে প্রতিযোগিতা করুন
-      </p>
-
-      <h1>আপনার ভ্রমণ, আপনার স্কোর।</h1>
-
-      <p>
-        বাংলাদেশের জনপ্রিয় স্থানগুলো ঘুরে Check-in করুন,
-        Point অর্জন করুন এবং Leaderboard-এ এগিয়ে যান।
-      </p>
-
+      <p class="eyebrow">বাংলাদেশ ঘুরুন • পয়েন্ট অর্জন করুন</p>
+      <h1>আপনার ভ্রমণ,<br>আপনার স্কোর!</h1>
+      <p>বাংলাদেশের ৩০০টি জনপ্রিয় দর্শনীয় স্থান ঘুরে নিজের ভ্রমণের হিসাব রাখুন। পয়েন্ট সংগ্রহ করুন এবং অন্য ভ্রমণকারীদের সঙ্গে প্রতিযোগিতা করুন।</p>
       <div class="actions">
-        <button class="primary" onclick="window.location.href='./login.html'">Account তৈরি করুন</button>
-        </button>
+        <button class="primary" onclick="showAuth('register')">Account তৈরি করুন</button>
         <button class="secondary" onclick="showAuth('login')">Login</button>
-        </button>
+        <a class="secondary button-link" href="#divisions">ঘুরতে শুরু করুন</a>
       </div>
     </div>
-
     <div class="hero-card">
-      <div class="flag">🇧🇩</div>
-      <b>সর্বোচ্চ স্কোর</b>
-      <strong>100 / 100</strong>
-      <small>৩০০টি স্থান সম্পন্ন করলে</small>
+      <div class="flag">🧭</div>
+      <p>সর্বোচ্চ পয়েন্ট</p>
+      <strong>২০০</strong>
+      <small>৩০০টি স্থান ঘুরে অর্জন করুন</small>
+      <div class="mini-stats">
+        <span>🏆 লক্ষ্য: ২০০ পয়েন্ট</span>
+        <span>🎯 পাশ: ৫০ পয়েন্ট</span>
+      </div>
     </div>
   </section>
 
-  <!-- Login and Registration -->
-  <section id="auth" class="panel hidden">
-    <div class="panel-head">
-      <h2 id="authTitle">Login</h2>
-      <button class="x" onclick="hideAuth()">×</button>
-    </div>
-
-    <form id="authForm">
-      <div id="nameWrap" class="field hidden">
-        <label for="name">আপনার নাম</label>
-        <input id="name" autocomplete="name" />
-      </div>
-
-      <div class="field">
-        <label for="email">Email</label>
-        <input
-          id="email"
-          type="email"
-          required
-          autocomplete="email"
-        />
-      </div>
-
-      <div class="field">
-        <label for="password">Password</label>
-        <input
-          id="password"
-          type="password"
-          minlength="8"
-          required
-          autocomplete="current-password"
-        />
-      </div>
-
-      <button class="primary wide" id="authSubmit" type="submit">
-        Login
-      </button>
-
-      <p id="authMsg" class="msg"></p>
-    </form>
-  </section>
-
-  <!-- User Dashboard -->
   <section id="dashboard" class="dashboard hidden">
     <div class="welcome">
       <div>
         <p class="eyebrow">আপনার Dashboard</p>
-        <h2>
-          স্বাগতম, <span id="userName">Traveler</span> 👋
-        </h2>
+        <h2>স্বাগতম, <span id="userName">Traveler</span>!</h2>
       </div>
-
       <div class="score">
-        <small>আপনার Point</small>
+        <small>আপনার পয়েন্ট</small>
         <strong id="userPoints">0.00</strong>
-        <span>/ 100</span>
+        <span>/ 200</span>
       </div>
     </div>
-
     <div class="stats">
-      <div>
-        <b id="visitedCount">0</b>
-        <span>Visited Places</span>
-      </div>
-
-      <div>
-        <b id="badgeCount">0</b>
-        <span>Badges</span>
-      </div>
-
-      <div>
-        <b>#—</b>
-        <span>Leaderboard</span>
-      </div>
+      <div><b id="visitedCount">0</b><span>সম্পন্ন স্থান</span></div>
+      <div><b id="badgeCount">0</b><span>অর্জিত ব্যাজ</span></div>
+      <div><b>৫০</b><span>পাশের পয়েন্ট</span></div>
     </div>
   </section>
 
-  <!-- Explore Places -->
-  <section id="explore" class="section">
+  <section id="divisions" class="section">
     <div class="section-head">
       <div>
-        <p class="eyebrow">Explore</p>
-        <h2>আপনার পরবর্তী গন্তব্য</h2>
+        <p class="eyebrow">Explore Bangladesh</p>
+        <h2>আপনি কোন বিভাগ ঘুরবেন?</h2>
+        <p>বিভাগ নির্বাচন করে আপনার পছন্দের জেলা ও দর্শনীয় স্থান খুঁজুন।</p>
       </div>
-
-      <span class="pill">300 Places • Coming Soon</span>
+      <span class="pill">৮টি বিভাগ • ৩০০টি স্থান</span>
     </div>
 
-    <div class="place-grid">
-
-      <article class="place">
-        <div class="place-img">🏞️</div>
-        <h3>সাজেক ভ্যালি</h3>
-        <p>Category 1 • 0.74 Point</p>
-        <button
-          class="secondary checkin"
-          data-place="Sajek Valley"
-          data-points="0.74"
-        >
-          শিগগিরই চালু হবে
-        </button>
-      </article>
-
-      <article class="place">
-        <div class="place-img">🌊</div>
-        <h3>সাদাপাথর</h3>
-        <p>Category 2 • 0.56 Point</p>
-        <button
-          class="secondary checkin"
-          data-place="Sadapathor"
-          data-points="0.56"
-        >
-          শিগগিরই চালু হবে
-        </button>
-      </article>
-
-      <article class="place">
-        <div class="place-img">🌿</div>
-        <h3>রাতারগুল</h3>
-        <p>Category 3 • 0.37 Point</p>
-        <button
-          class="secondary checkin"
-          data-place="Ratargul"
-          data-points="0.37"
-        >
-          শিগগিরই চালু হবে
-        </button>
-      </article>
-
+    <div class="division-grid">
+      <a class="division-card" href="./places.html?division=barishal"><span>🚤</span><b>বরিশাল</b><small>নদী ও প্রকৃতি</small></a>
+      <a class="division-card" href="./places.html?division=chattogram"><span>🌊</span><b>চট্টগ্রাম</b><small>পাহাড় ও সমুদ্র</small></a>
+      <a class="division-card" href="./places.html?division=dhaka"><span>🏙️</span><b>ঢাকা</b><small>ঐতিহ্য ও নগর</small></a>
+      <a class="division-card" href="./places.html?division=khulna"><span>🐅</span><b>খুলনা</b><small>বন ও বন্যপ্রাণী</small></a>
+      <a class="division-card" href="./places.html?division=mymensingh"><span>🌾</span><b>ময়মনসিংহ</b><small>সবুজ বাংলার রূপ</small></a>
+      <a class="division-card" href="./places.html?division=rajshahi"><span>🥭</span><b>রাজশাহী</b><small>ইতিহাস ও আমের দেশ</small></a>
+      <a class="division-card" href="./places.html?division=rangpur"><span>🌿</span><b>রংপুর</b><small>প্রকৃতি ও ঐতিহ্য</small></a>
+      <a class="division-card" href="./places.html?division=sylhet"><span>🍃</span><b>সিলেট</b><small>চা-বাগান ও ঝরনা</small></a>
     </div>
   </section>
 
-  <!-- Profile -->
+  <section id="points" class="section">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Point System</p>
+        <h2>পয়েন্ট কীভাবে পাবেন?</h2>
+        <p>সব ৩০০টি স্থানের পয়েন্ট যোগ করলে সর্বোচ্চ ২০০ পয়েন্ট হবে।</p>
+      </div>
+    </div>
+    <div class="point-grid">
+      <article class="point-card">
+        <span>🥇</span><h3>ক্যাটাগরি ১</h3>
+        <strong>২ পয়েন্ট</strong>
+        <p>৫০টি স্থান • মোট ১০০ পয়েন্ট</p>
+      </article>
+      <article class="point-card">
+        <span>🥈</span><h3>ক্যাটাগরি ২</h3>
+        <strong>১ পয়েন্ট</strong>
+        <p>১০০টি স্থান • মোট ১০০ পয়েন্ট</p>
+      </article>
+      <article class="point-card">
+        <span>🥉</span><h3>ক্যাটাগরি ৩</h3>
+        <strong>প্রতি স্থানে ⅔ পয়েন্ট</strong>
+        <p>১৫০টি স্থান • মোট ১০০ পয়েন্ট</p>
+      </article>
+    </div>
+    <p class="notice">📌 কোনো স্থানের পয়েন্ট একবারই পাওয়া যাবে। ৫০ পয়েন্ট অর্জন করলে আপনার লক্ষ্য পূরণ হবে।</p>
+  </section>
+
+  <section class="section steps">
+    <p class="eyebrow">সহজ ৩টি ধাপ</p>
+    <h2>কীভাবে শুরু করবেন?</h2>
+    <div class="step-grid">
+      <div><span>১</span><h3>অ্যাকাউন্ট তৈরি</h3><p>নিজের নাম ও ইমেইল দিয়ে নিবন্ধন করুন।</p></div>
+      <div><span>২</span><h3>স্থান নির্বাচন</h3><p>বিভাগ, জেলা এবং দর্শনীয় স্থান খুঁজুন।</p></div>
+      <div><span>৩</span><h3>পয়েন্ট সংগ্রহ</h3><p>ভ্রমণ সম্পন্ন করে পয়েন্ট অর্জন করুন।</p></div>
+    </div>
+  </section>
+
   <section id="profile" class="section">
     <div class="profile-card">
       <div class="avatar">👤</div>
-
       <div>
-        <p class="eyebrow">Profile</p>
-        <h2 id="profileName">Guest</h2>
-        <p id="profileEmail">
-          Login করলে আপনার তথ্য এখানে দেখা যাবে।
-        </p>
+        <p class="eyebrow">আমার প্রোফাইল</p>
+        <h2 id="profileName">অতিথি</h2>
+        <p id="profileEmail">আপনার অ্যাকাউন্টে Login করলে তথ্য দেখা যাবে।</p>
       </div>
     </div>
   </section>
-
 </main>
 
-<footer>
-  © 2026 ঘুরবো বাংলাদেশ • Explore Bangladesh, One Place at a Time 🇧🇩
-</footer>
+<footer>© 2026 ঘুরবো বাংলাদেশ 🇧🇩 • ঘুরুন, জানুন, পয়েন্ট অর্জন করুন।</footer>
 
-<script src="./app.js?v=2"></script>
-
+<script src="./app.js?v=3"></script>
 </body>
 </html>
