@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="bn">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Login | ঘুরবো বাংলাদেশ</title>
+  <link rel="stylesheet" href="./style.css">
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">🇧🇩 <span>ঘুরবো বাংলাদেশ</span></div>
+    <nav>
+      <a href="./index.html">হোম</a>
+      <a href="./places.html">পর্যটনস্থল</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="panel" id="auth">
+      <div class="panel-head">
+        <h2 id="authTitle">Login</h2>
+      </div>
+
+      <form id="authForm">
+        <div id="nameWrap" class="field hidden">
+          <label for="name">আপনার নাম</label>
+          <input id="name" autocomplete="name">
+        </div>
+
+        <div class="field">
+          <label for="email">ইমেইল</label>
+          <input id="email" type="email" required autocomplete="email">
+        </div>
+
+        <div class="field">
+          <label for="password">পাসওয়ার্ড</label>
+          <input id="password" type="password" minlength="8" required>
+        </div>
+
+        <button class="primary wide" id="authSubmit" type="submit">Login করুন</button>
+        <p id="authMsg" class="msg"></p>
+      </form>
+
+      <div class="actions">
+        <button class="secondary" type="button" onclick="showAuth('login')">Login</button>
+        <button class="secondary" type="button" onclick="showAuth('register')">নতুন অ্যাকাউন্ট</button>
+      </div>
+    </section>
+
+    <section id="dashboard" class="dashboard hidden">
+      <div class="welcome">
+        <div>
+          <p class="eyebrow">আপনার Dashboard</p>
+          <h2>স্বাগতম, <span id="userName">Traveler</span>!</h2>
+        </div>
+        <div class="score">
+          <small>আপনার Point</small>
+          <strong id="userPoints">0.00</strong>
+          <span>/ 100</span>
+        </div>
+      </div>
+
+      <div class="profile-card">
+        <div class="avatar">👤</div>
+        <div>
+          <h2 id="profileName">Guest</h2>
+          <p id="profileEmail"></p>
+        </div>
+      </div>
+
+      <button class="secondary" id="logoutBtn">Logout</button>
+    </section>
+  </main>
+
+  <footer>© 2026 ঘুরবো বাংলাদেশ 🇧🇩</footer>
+  <script src="./app.js"></script>
+</body>
+  </html>
