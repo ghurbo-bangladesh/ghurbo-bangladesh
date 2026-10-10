@@ -560,3 +560,10 @@ footer {
     font-size: 20px;
   }
   }
+body {
+background: #e8f5e9 !important;
+}
+
+h1 {
+color: #176344 !important;
+    }
