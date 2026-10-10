@@ -1,0 +1,76 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f3f8f4;
+  color: #183528;
+}
+
+header {
+  background: #087443;
+  color: white;
+  padding: 24px 16px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0 0 10px;
+  font-size: 30px;
+}
+
+header p {
+  margin: 0;
+  font-size: 16px;
+}
+
+nav {
+  background: #075c36;
+  padding: 14px;
+  text-align: center;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  margin: 0 10px;
+  display: inline-block;
+  padding: 5px;
+}
+
+main {
+  max-width: 1000px;
+  margin: 24px auto;
+  padding: 0 16px;
+}
+
+.welcome {
+  background: white;
+  padding: 28px 20px;
+  border-radius: 14px;
+  text-align: center;
+  box-shadow: 0 3px 12px #00000010;
+}
+
+.welcome h2 {
+  color: #087443;
+}
+
+button {
+  background: #087443;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 12px 20px;
+  font-size: 16px;
+}
+
+footer {
+  background: #075c36;
+  color: white;
+  text-align: center;
+  padding: 18px;
+  margin-top: 30px;
+}
