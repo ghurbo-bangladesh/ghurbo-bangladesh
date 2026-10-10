@@ -3,71 +3,71 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>বিভাগ ও দর্শনীয় স্থান | ঘুরবো বাংলাদেশ</title>
-  <link rel="stylesheet" href="./style.css">
+  <title>বিভাগ ও জেলা | ঘুরবো বাংলাদেশ</title>
+  <link rel="stylesheet" href="./style.css?v=3">
   <style>
-    .division-grid,.district-grid,.place-list {
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(145px,1fr));
-      gap:12px;
-      margin-top:20px;
+    .browse-head {
+      padding: 28px;
+      background: #e2f2e5;
+      border-radius: 20px;
+      margin-bottom: 22px;
     }
-    .pick-card {
-      padding:18px;
-      border:1px solid #dce8df;
-      border-radius:14px;
-      background:white;
-      color:#174b35;
-      text-align:left;
-      cursor:pointer;
-      font-size:16px;
+    .browse-head h1 {
+      color: #104b34;
+      margin: 0 0 8px;
     }
-    .pick-card:hover { background:#edf8f0; }
-    .pick-card small {
-      display:block;
-      margin-top:7px;
-      color:#64756a;
+    .district-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
     }
-    .back-button {
-      margin-top:14px;
-      padding:10px 15px;
-      border:0;
-      border-radius:9px;
-      cursor:pointer;
+    .district-button {
+      background: white;
+      border: 1px solid #e0eae2;
+      border-radius: 12px;
+      padding: 15px 10px;
+      color: #176344;
+      font-weight: 700;
+      text-align: left;
     }
-    .crumb { color:#52715f; margin:10px 0; }
-    .place-row {
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
-      flex-wrap:wrap;
+    .district-button:hover {
+      background: #eaf5ed;
     }
-    .place-row button { padding:10px 12px; }
-    .notice { margin-top:15px; color:#176344; }
+    .back-link {
+      display: inline-block;
+      margin-bottom: 18px;
+      color: #176344;
+      font-weight: 700;
+    }
+    @media (max-width: 600px) {
+      .district-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
   </style>
 </head>
 <body>
 <header class="topbar">
-  <div class="brand">🇧🇩 <span>ঘুরবো বাংলাদেশ</span></div>
-  <nav>
-    <a href="./index.html">হোম</a>
-    <a href="./places.html">পর্যটনস্থল</a>
-    <a href="./login.html">Login</a>
-    <a href="./dashboard.html">Dashboard</a>
-  </nav>
+  <a class="brand" href="./index.html">🇧🇩 ঘুরবো বাংলাদেশ</a>
+  <nav><a href="./index.html">হোমে ফিরে যান</a></nav>
 </header>
 
 <main>
-  <section class="section">
-    <p class="eyebrow">EXPLORE BANGLADESH</p>
-    <h2>বাংলাদেশ ঘুরুন, পয়েন্ট সংগ্রহ করুন</h2>
-    <p>প্রথমে বিভাগ, তারপর জেলা এবং এরপর দর্শনীয় স্থান নির্বাচন করুন।</p>
+  <a class="back-link" href="./index.html#divisions">← সব বিভাগ</a>
 
-    <div id="breadcrumb" class="crumb">বাংলাদেশ</div>
-    <div id="content" class="division-grid"></div>
-    <button id="backButton" class="back-button secondary" hidden>← পেছনে যান</button>
-    <p id="notice" class="notice"></p>
+  <section class="browse-head">
+    <p class="eyebrow">Explore Bangladesh</p>
+    <h1 id="divisionTitle">বাংলাদেশের জেলা</h1>
+    <p>আপনার পছন্দের জেলা নির্বাচন করুন।</p>
+  </section>
+
+  <section class="section">
+    <div class="section-head">
+      <h2 id="districtHeading">জেলার তালিকা</h2>
+      <span class="pill" id="districtCount"></span>
+    </div>
+    <div id="districtGrid" class="district-grid"></div>
+    <p id="message" class="notice hidden"></p>
   </section>
 </main>
 
@@ -75,109 +75,109 @@
 
 <script>
 const divisions = {
-  "ঢাকা বিভাগ": [
-    "ঢাকা","গাজীপুর","গোপালগঞ্জ","কিশোরগঞ্জ","মাদারীপুর",
-    "মানিকগঞ্জ","মুন্সীগঞ্জ","নারায়ণগঞ্জ","নরসিংদী","রাজবাড়ী",
-    "ফরিদপুর","শরীয়তপুর","টাঙ্গাইল"
-  ],
-  "চট্টগ্রাম বিভাগ": [
-    "চট্টগ্রাম","কক্সবাজার","কুমিল্লা","ব্রাহ্মণবাড়িয়া","চাঁদপুর",
-    "ফেনী","লক্ষ্মীপুর","নোয়াখালী","রাঙামাটি","খাগড়াছড়ি","বান্দরবান"
-  ],
-  "রাজশাহী বিভাগ": [
-    "রাজশাহী","বগুড়া","জয়পুরহাট","নওগাঁ","নাটোর",
-    "চাঁপাইনবাবগঞ্জ","পাবনা","সিরাজগঞ্জ"
-  ],
-  "খুলনা বিভাগ": [
-    "খুলনা","বাগেরহাট","চুয়াডাঙ্গা","যশোর","ঝিনাইদহ",
-    "কুষ্টিয়া","মাগুরা","মেহেরপুর","নড়াইল","সাতক্ষীরা"
-  ],
-  "বরিশাল বিভাগ": [
-    "বরিশাল","বরগুনা","ভোলা","ঝালকাঠি","পটুয়াখালী","পিরোজপুর"
-  ],
-  "সিলেট বিভাগ": [
-    "সিলেট","মৌলভীবাজার","হবিগঞ্জ","সুনামগঞ্জ"
-  ],
-  "রংপুর বিভাগ": [
-    "রংপুর","দিনাজপুর","গাইবান্ধা","কুড়িগ্রাম","লালমনিরহাট",
-    "নীলফামারী","পঞ্চগড়","ঠাকুরগাঁও"
-  ],
-  "ময়মনসিংহ বিভাগ": [
-    "ময়মনসিংহ","জামালপুর","নেত্রকোণা","শেরপুর"
-  ]
-};
-
-/* পরে এখানে Supabase থেকে প্রতিটি জেলার দর্শনীয় স্থান দেখানো হবে। */
-const content = document.getElementById("content");
-const breadcrumb = document.getElementById("breadcrumb");
-const backButton = document.getElementById("backButton");
-const notice = document.getElementById("notice");
-
-let currentDivision = null;
-let currentDistrict = null;
-
-function showDivisions() {
-  currentDivision = null;
-  currentDistrict = null;
-  breadcrumb.textContent = "বাংলাদেশ";
-  content.className = "division-grid";
-  content.innerHTML = "";
-
-  Object.keys(divisions).forEach(division => {
-    const button = document.createElement("button");
-    button.className = "pick-card";
-    button.innerHTML = "📍 " + division +
-      "<small>" + divisions[division].length + "টি জেলা</small>";
-    button.onclick = () => showDistricts(division);
-    content.appendChild(button);
-  });
-
-  backButton.hidden = true;
-  notice.textContent = "";
-}
-
-function showDistricts(division) {
-  currentDivision = division;
-  currentDistrict = null;
-  breadcrumb.textContent = "বাংলাদেশ › " + division;
-  content.className = "district-grid";
-  content.innerHTML = "";
-
-  divisions[division].forEach(district => {
-    const button = document.createElement("button");
-    button.className = "pick-card";
-    button.textContent = district + " জেলা";
-    button.onclick = () => showPlaces(district);
-    content.appendChild(button);
-  });
-
-  backButton.hidden = false;
-  notice.textContent = "";
-}
-
-async function showPlaces(district) {
-  currentDistrict = district;
-  breadcrumb.textContent =
-    "বাংলাদেশ › " + currentDivision + " › " + district;
-  content.className = "place-list";
-  content.innerHTML = "";
-  notice.textContent = "দর্শনীয় স্থানের তালিকা লোড করার ব্যবস্থা পরের ধাপে যুক্ত হবে।";
-  backButton.hidden = false;
-
-  const heading = document.createElement("p");
-  heading.textContent = district + " জেলার দর্শনীয় স্থান";
-  content.appendChild(heading);
-}
-
-backButton.onclick = () => {
-  if (currentDistrict) {
-    showDistricts(currentDivision);
-  } else {
-    showDivisions();
+  barishal: {
+    name: "বরিশাল বিভাগ",
+    districts: [
+      "বরিশাল", "বরগুনা", "ভোলা", "ঝালকাঠি",
+      "পটুয়াখালী", "পিরোজপুর"
+    ]
+  },
+  chattogram: {
+    name: "চট্টগ্রাম বিভাগ",
+    districts: [
+      "চট্টগ্রাম", "কক্সবাজার", "কুমিল্লা", "ব্রাহ্মণবাড়িয়া",
+      "চাঁদপুর", "ফেনী", "লক্ষ্মীপুর", "নোয়াখালী",
+      "খাগড়াছড়ি", "রাঙ্গামাটি", "বান্দরবান"
+    ]
+  },
+  dhaka: {
+    name: "ঢাকা বিভাগ",
+    districts: [
+      "ঢাকা", "গাজীপুর", "গোপালগঞ্জ", "কিশোরগঞ্জ",
+      "মাদারীপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ", "নারায়ণগঞ্জ",
+      "নরসিংদী", "রাজবাড়ী", "ফরিদপুর", "শরীয়তপুর",
+      "টাঙ্গাইল"
+    ]
+  },
+  khulna: {
+    name: "খুলনা বিভাগ",
+    districts: [
+      "খুলনা", "বাগেরহাট", "চুয়াডাঙ্গা", "যশোর",
+      "ঝিনাইদহ", "কুষ্টিয়া", "মাগুরা", "মেহেরপুর",
+      "নড়াইল", "সাতক্ষীরা"
+    ]
+  },
+  mymensingh: {
+    name: "ময়মনসিংহ বিভাগ",
+    districts: [
+      "ময়মনসিংহ", "জামালপুর", "নেত্রকোণা", "শেরপুর"
+    ]
+  },
+  rajshahi: {
+    name: "রাজশাহী বিভাগ",
+    districts: [
+      "রাজশাহী", "বগুড়া", "জয়পুরহাট", "নওগাঁ",
+      "নাটোর", "চাঁপাইনবাবগঞ্জ", "পাবনা", "সিরাজগঞ্জ"
+    ]
+  },
+  rangpur: {
+    name: "রংপুর বিভাগ",
+    districts: [
+      "রংপুর", "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম",
+      "লালমনিরহাট", "নীলফামারী", "পঞ্চগড়", "ঠাকুরগাঁও"
+    ]
+  },
+  sylhet: {
+    name: "সিলেট বিভাগ",
+    districts: [
+      "সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"
+    ]
   }
 };
 
-showDivisions();
+const params = new URLSearchParams(window.location.search);
+const divisionKey = params.get("division");
+const division = divisions[divisionKey];
+
+const title = document.getElementById("divisionTitle");
+const heading = document.getElementById("districtHeading");
+const grid = document.getElementById("districtGrid");
+const count = document.getElementById("districtCount");
+const message = document.getElementById("message");
+
+if (!division) {
+  title.textContent = "বিভাগ নির্বাচন করুন";
+  heading.textContent = "৮টি বিভাগ";
+  count.textContent = "৮ বিভাগ";
+  grid.innerHTML = "";
+
+  Object.entries(divisions).forEach(([key, item]) => {
+    const link = document.createElement("a");
+    link.className = "district-button";
+    link.href = "./places.html?division=" + key;
+    link.textContent = "📍 " + item.name;
+    grid.appendChild(link);
+  });
+} else {
+  title.textContent = division.name;
+  heading.textContent = "জেলা নির্বাচন করুন";
+  count.textContent = division.districts.length + "টি জেলা";
+
+  division.districts.forEach((district) => {
+    const button = document.createElement("button");
+    button.className = "district-button";
+    button.type = "button";
+    button.textContent = "📍 " + district;
+
+    button.addEventListener("click", () => {
+      message.textContent =
+        district + " জেলার দর্শনীয় স্থানের তালিকা পরের ধাপে যুক্ত করা হবে।";
+      message.classList.remove("hidden");
+    });
+
+    grid.appendChild(button);
+  });
+}
 </script>
 </body>
 </html>
