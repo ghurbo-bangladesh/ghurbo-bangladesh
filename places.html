@@ -395,7 +395,50 @@ completeBtn.type = "button";
 completeBtn.textContent = "✓ ভ্রমণ সম্পন্ন";
 completeBtn.style.cssText =
   "background:#176344;color:white;border:0;border-radius:8px;padding:9px 12px;font-size:13px;width:100%;";
+completeBtn.addEventListener("click", async () => {
+  completeBtn.disabled = true;
 
+  try {
+    const { data, error: loginError } =
+      await visitDB.auth.getUser();
+
+    if (loginError) throw loginError;
+
+    if (!data.user) {
+      alert("পয়েন্ট জমা দিতে আগে লগইন করুন।");
+      return;
+    }
+
+    const { error } = await visitDB
+      .from("place_visits")
+      .insert({
+        user_id: data.user.id,
+        place_name: name,
+        points: points
+      });
+
+    if (error) {
+      if (error.code === "23505") {
+        alert("এই স্থানের পয়েন্ট আগেই জমা হয়েছে!");
+      } else {
+        console.error(error);
+        alert("পয়েন্ট জমা হয়নি। আবার চেষ্টা করুন।");
+      }
+      return;
+    }
+
+    alert(
+      name + " ভ্রমণের " + points +
+      " পয়েন্ট সফলভাবে জমা হয়েছে!"
+    );
+
+  } catch (error) {
+    console.error(error);
+    alert("সমস্যা হয়েছে। লগইন ও Supabase সংযোগ পরীক্ষা করুন।");
+  } finally {
+    completeBtn.disabled = false;
+  }
+});
 card.append(title, note, completeBtn);
       placeList.appendChild(card);
     });
