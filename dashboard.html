@@ -3,139 +3,577 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#116149">
   <title>আমার ড্যাশবোর্ড | ঘুরবো বাংলাদেশ</title>
   <link rel="stylesheet" href="./style.css">
+
   <style>
+    * { box-sizing: border-box; }
+
+    :root {
+      --green: #116149;
+      --green2: #19845d;
+      --pale: #eaf6ef;
+      --bg: #f5f9f6;
+      --text: #20372b;
+      --muted: #718078;
+      --border: #e4eee7;
+    }
+
+    html { scroll-behavior: smooth; }
+
     body {
       margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f3f7f5;
-      color: #20352a;
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.65;
     }
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+
     .topbar {
-      background: #125b3b;
-      color: white;
-      padding: 16px;
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 13px 5%;
       display: flex;
-      justify-content: space-between;
       align-items: center;
-      gap: 12px;
+      justify-content: space-between;
+      gap: 14px;
       flex-wrap: wrap;
     }
-    .topbar a { color: white; text-decoration: none; }
-    .topbar button {
-      background: white;
-      color: #125b3b;
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: var(--green);
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    .brand-icon {
+      width: 43px;
+      height: 43px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--pale);
+      font-size: 23px;
+    }
+
+    .brand small {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 9px;
+    }
+
+    .nav a, .nav button {
       border: 0;
-      padding: 10px 14px;
+      background: transparent;
+      padding: 9px 11px;
       border-radius: 9px;
-      font-weight: bold;
+      font-size: 13px;
+      font-weight: 700;
     }
-    main {
-      max-width: 1000px;
-      margin: auto;
-      padding: 20px 14px;
-    }
-    .hero {
-      padding: 26px 20px;
-      border-radius: 20px;
+
+    .nav a:hover { background: var(--pale); color: var(--green); }
+
+    .nav .logout {
+      background: var(--green);
       color: white;
-      background: linear-gradient(120deg, #125b3b, #278b60);
-      margin-bottom: 18px;
     }
-    .hero h1 { margin: 0 0 8px; }
-    .cards {
+
+    main {
+      width: min(1120px, 92%);
+      margin: 24px auto 36px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 30px;
+      border-radius: 23px;
+      color: white;
+      background: linear-gradient(125deg, #104e39, #19845d);
+      box-shadow: 0 12px 28px #145c3b18;
+    }
+
+    .hero:after {
+      content: "✦";
+      position: absolute;
+      right: 24px;
+      top: 2px;
+      font-size: 115px;
+      color: #ffffff12;
+      pointer-events: none;
+    }
+
+    .eyebrow {
+      font-size: 12px;
+      letter-spacing: .4px;
+      color: #d2f3df;
+      font-weight: 700;
+    }
+
+    .hero h1 {
+      margin: 5px 0;
+      font-size: clamp(25px, 5vw, 38px);
+      line-height: 1.35;
+    }
+
+    .hero p { margin: 8px 0 17px; color: #e0f5e8; }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      padding: 11px 16px;
+      border: 0;
+      border-radius: 11px;
+      background: white;
+      color: var(--green);
+      font-weight: 800;
+      font-size: 13px;
+    }
+
+    .btn-green { background: var(--green); color: white; }
+    .btn-light { background: #eaf6ef; color: var(--green); }
+
+    .section-title {
+      margin: 28px 0 13px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 20px;
+      color: var(--green);
+    }
+
+    .section-title small {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      font-weight: 400;
+    }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 17px;
+      padding: 19px;
+      box-shadow: 0 5px 18px #183b2510;
+      min-width: 0;
+    }
+
+    .stat-label {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      color: #64756b;
+    }
+
+    .stat-icon {
+      width: 38px;
+      height: 38px;
+      border-radius: 12px;
+      display: grid;
+      place-items: center;
+      background: var(--pale);
+      font-size: 20px;
+    }
+
+    .stat-number {
+      margin-top: 8px;
+      color: var(--green);
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1.3;
+      overflow-wrap: anywhere;
+    }
+
+    .stat-note { font-size: 11px; color: var(--muted); }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 1.3fr) minmax(260px, .7fr);
+      gap: 16px;
+      margin-top: 18px;
+      align-items: start;
+    }
+
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: 0 5px 18px #183b2510;
+      min-width: 0;
+    }
+
+    .panel h2 {
+      margin: 0 0 5px;
+      font-size: 18px;
+      color: var(--green);
+    }
+
+    .subtext { margin: 0 0 15px; color: var(--muted); font-size: 12px; }
+
+    .profile-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 0;
+    }
+
+    .avatar {
+      width: 51px;
+      height: 51px;
+      border-radius: 50%;
+      background: var(--pale);
+      color: var(--green);
+      display: grid;
+      place-items: center;
+      font-size: 23px;
+      flex-shrink: 0;
+    }
+
+    .profile-info { min-width: 0; }
+    .profile-info strong { display: block; overflow-wrap: anywhere; }
+    .profile-info small { display: block; color: var(--muted); overflow-wrap: anywhere; }
+
+    .profile-detail {
+      border-top: 1px solid var(--border);
+      padding: 12px 0;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      font-size: 13px;
+    }
+
+    .profile-detail span:first-child { color: var(--muted); }
+    .profile-detail strong { text-align: right; overflow-wrap: anywhere; }
+
+    .progress-track {
+      height: 10px;
+      background: #e8efeb;
+      border-radius: 20px;
+      overflow: hidden;
+      margin: 12px 0 7px;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #19845d, #68c49a);
+      border-radius: inherit;
+      transition: width .4s ease;
+    }
+
+    .progress-caption {
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--muted);
+      font-size: 11px;
+    }
+
+    .history-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .history-row:last-child { border-bottom: 0; }
+
+    .place-icon {
+      width: 40px;
+      height: 40px;
+      flex-shrink: 0;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: var(--pale);
+      font-size: 19px;
+    }
+
+    .place-info { flex: 1; min-width: 0; }
+    .place-info strong { display: block; overflow-wrap: anywhere; }
+    .place-info small { color: var(--muted); font-size: 11px; }
+
+    .points-pill {
+      flex-shrink: 0;
+      background: var(--pale);
+      color: var(--green);
+      border-radius: 20px;
+      padding: 5px 9px;
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .empty {
+      padding: 25px 10px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .empty-icon { font-size: 34px; margin-bottom: 5px; }
+
+    .quick-links {
       display: grid;
       grid-template-columns: repeat(3, minmax(0, 1fr));
       gap: 12px;
-      margin-bottom: 22px;
+      margin-top: 16px;
     }
-    .card, .history {
+
+    .quick-link {
       background: white;
+      border: 1px solid var(--border);
+      border-radius: 15px;
+      padding: 16px;
+      transition: transform .2s;
+    }
+
+    .quick-link:hover { transform: translateY(-2px); }
+    .quick-link .q-icon { font-size: 25px; }
+    .quick-link strong { display: block; margin-top: 7px; color: var(--green); }
+    .quick-link small { color: var(--muted); font-size: 11px; }
+
+    .quote {
+      margin-top: 16px;
       border-radius: 16px;
       padding: 18px;
-      box-shadow: 0 5px 20px #173d2510;
+      background: #eaf6ef;
+      color: var(--green);
+      text-align: center;
+      font-weight: 700;
+    }
+
+    #notice {
+      margin: 12px 0;
+      padding: 10px 12px;
+      border-radius: 10px;
+      background: #f0f6f2;
+      color: #52685a;
+      font-size: 12px;
       overflow-wrap: anywhere;
     }
-    .number {
-      font-size: 28px;
-      font-weight: bold;
-      color: #176b43;
-      margin-top: 8px;
+
+    footer {
+      background: #104e39;
+      color: white;
+      text-align: center;
+      padding: 23px 15px;
+      font-size: 12px;
     }
-    .action {
-      display: inline-block;
-      padding: 12px 16px;
-      margin: 5px 5px 0 0;
-      background: white;
-      color: #176b43;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
+
+    footer p { margin: 5px 0; color: #d2e9db; }
+    .footer-links { display: flex; justify-content: center; flex-wrap: wrap; gap: 16px; margin: 12px 0; }
+
+    @media (max-width: 720px) {
+      .topbar { padding: 12px 4%; }
+      .brand { font-size: 17px; }
+      .nav { width: 100%; gap: 4px; }
+      .nav a, .nav button { padding: 8px; font-size: 12px; }
+      main { width: 92%; margin-top: 16px; }
+      .hero { padding: 23px 19px; border-radius: 17px; }
+      .hero:after { font-size: 75px; right: 10px; }
+      .stats { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+      .card { padding: 14px; }
+      .stat-number { font-size: 26px; }
+      .layout { grid-template-columns: 1fr; }
+      .quick-links { grid-template-columns: 1fr; }
+      .quick-link { display: flex; align-items: center; gap: 12px; }
+      .quick-link .q-icon { width: 36px; }
+      .quick-link strong { margin-top: 0; }
+      .section-title { font-size: 18px; }
+      .panel { padding: 16px; }
     }
-    .history { margin-top: 18px; }
-    .visit {
-      padding: 13px 0;
-      border-bottom: 1px solid #e6ece8;
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-    }
-    .visit:last-child { border-bottom: 0; }
-    #notice { overflow-wrap: anywhere; }
-    @media (max-width: 600px) {
-      .cards { grid-template-columns: 1fr; }
-      .number { font-size: 25px; }
+
+    @media (max-width: 360px) {
+      .stats { grid-template-columns: 1fr; }
+      .points-pill { font-size: 11px; padding: 4px 6px; }
     }
   </style>
 </head>
+
 <body>
   <header class="topbar">
-    <strong>🇧🇩 ঘুরবো বাংলাদেশ</strong>
-    <nav>
-      <a href="./index.html">হোম</a>
-      &nbsp; | &nbsp;
-      <a href="./places.html">পর্যটনস্থান</a>
-      &nbsp; | &nbsp;
-      <button id="logoutBtn">লগআউট</button>
+    <a class="brand" href="./index.html">
+      <span class="brand-icon">🇧🇩</span>
+      <span>
+        ঘুরবো বাংলাদেশ
+        <small>আপনার ভ্রমণ, আপনার অর্জন</small>
+      </span>
+    </a>
+
+    <nav class="nav" aria-label="প্রধান মেনু">
+      <a href="./index.html">⌂ হোম</a>
+      <a href="./places.html">📍 পর্যটনস্থান</a>
+      <a href="#leaderboard">🏆 লিডারবোর্ড</a>
+      <button class="logout" id="logoutBtn">↪ লগআউট</button>
     </nav>
   </header>
 
   <main>
     <section class="hero">
+      <div class="eyebrow">আপনার ভ্রমণের নতুন ঠিকানা</div>
       <h1>স্বাগতম, <span id="userName">ভ্রমণপ্রেমী</span>!</h1>
-      <p>আপনার ভ্রমণের অর্জনগুলো এক জায়গায় দেখুন।</p>
-      <a class="action" href="./places.html">নতুন স্থান ঘুরে দেখুন</a>
+      <p>দেশের দর্শনীয় স্থান ঘুরুন, স্মৃতি তৈরি করুন এবং পয়েন্ট অর্জন করুন।</p>
+      <a class="btn" href="./places.html">📍 নতুন স্থান ঘুরে দেখুন</a>
     </section>
 
-    <section class="cards">
+    <h2 class="section-title">
+      <span>⭐ আপনার অর্জন
+        <small>আপনার ভ্রমণের বর্তমান হিসাব</small>
+      </span>
+    </h2>
+
+    <section class="stats">
       <div class="card">
-        <div>⭐ মোট অর্জিত পয়েন্ট</div>
-        <div class="number" id="totalPoints">0</div>
+        <div class="stat-label">
+          <span class="stat-icon">🏆</span> মোট পয়েন্ট
+        </div>
+        <div class="stat-number" id="totalPoints">0</div>
+        <div class="stat-note">এখন পর্যন্ত অর্জিত</div>
       </div>
+
       <div class="card">
-        <div>📍 ভ্রমণ করা স্থান</div>
-        <div class="number" id="visitedCount">0</div>
+        <div class="stat-label">
+          <span class="stat-icon">📍</span> ভ্রমণ করা স্থান
+        </div>
+        <div class="stat-number" id="visitedCount">0</div>
+        <div class="stat-note">জমা দেওয়া ভ্রমণ</div>
       </div>
+
       <div class="card">
-        <div>🏆 লিডারবোর্ড</div>
-        <div class="number">চলুন</div>
-        <a href="./index.html#leaderboard">র‍্যাঙ্ক দেখুন</a>
+        <div class="stat-label">
+          <span class="stat-icon">🎖️</span> ভ্রমণ অবস্থা
+        </div>
+        <div class="stat-number" id="travelStatus" style="font-size:22px">শুরু করুন</div>
+        <div class="stat-note">আপনার যাত্রা চলমান</div>
       </div>
     </section>
 
-    <section class="history">
-      <h2>🧭 আমার ভ্রমণের ইতিহাস</h2>
-      <p id="notice">আপনার তথ্য লোড হচ্ছে...</p>
-      <div id="historyList"></div>
+    <section class="layout">
+      <div class="panel">
+        <h2>🧭 আমার ভ্রমণের ইতিহাস</h2>
+        <p class="subtext">আপনি যেসব ভ্রমণ জমা দিয়েছেন</p>
+        <div id="notice" role="status" aria-live="polite">আপনার তথ্য লোড হচ্ছে...</div>
+        <div id="historyList"></div>
+      </div>
+
+      <aside class="panel">
+        <h2>👤 আমার প্রোফাইল</h2>
+        <p class="subtext">আপনার অ্যাকাউন্টের তথ্য</p>
+
+        <div class="profile-row">
+          <div class="avatar">👤</div>
+          <div class="profile-info">
+            <strong id="profileName">লোড হচ্ছে...</strong>
+            <small id="profileEmail">—</small>
+          </div>
+        </div>
+
+        <div class="profile-detail">
+          <span>অ্যাকাউন্ট</span>
+          <strong>সক্রিয়</strong>
+        </div>
+        <div class="profile-detail">
+          <span>ভ্রমণ করা স্থান</span>
+          <strong id="profileVisits">0</strong>
+        </div>
+        <div class="profile-detail">
+          <span>মোট পয়েন্ট</span>
+          <strong id="profilePoints">0</strong>
+        </div>
+
+        <h2 style="margin-top:22px">🌿 ভ্রমণের অগ্রগতি</h2>
+        <p class="subtext">আপনার অর্জন বাড়ার সঙ্গে এই বারটি পূর্ণ হবে।</p>
+        <div class="progress-track">
+          <div class="progress-fill" id="progressFill"></div>
+        </div>
+        <div class="progress-caption">
+          <span id="progressText">এখনো প্রথম ভ্রমণ জমা হয়নি</span>
+          <span id="progressPercent">0%</span>
+        </div>
+
+        <div class="quote">
+          “ভ্রমণ শুধু দেখা নয়, নতুন করে আবিষ্কার করা।”
+        </div>
+      </aside>
+    </section>
+
+    <h2 class="section-title" id="leaderboard">
+      <span>🗺️ আরও ঘুরুন
+        <small>আপনার পরবর্তী ভ্রমণ শুরু করুন</small>
+      </span>
+    </h2>
+
+    <section class="quick-links">
+      <a class="quick-link" href="./places.html">
+        <span class="q-icon">📍</span>
+        <span>
+          <strong>দর্শনীয় স্থান</strong>
+          <small>জেলা বেছে নতুন জায়গা খুঁজুন</small>
+        </span>
+      </a>
+
+      <a class="quick-link" href="./index.html">
+        <span class="q-icon">🏡</span>
+        <span>
+          <strong>হোমপেজ</strong>
+          <small>ঘুরবো বাংলাদেশের মূল পেজ</small>
+        </span>
+      </a>
+
+      <div class="quick-link">
+        <span class="q-icon">🏆</span>
+        <span>
+          <strong>লিডারবোর্ড</strong>
+          <small>র‍্যাঙ্কিং সুবিধা পরবর্তী ধাপে যুক্ত হবে</small>
+        </span>
+      </div>
     </section>
   </main>
+
+  <footer>
+    <strong>🇧🇩 ঘুরবো বাংলাদেশ</strong>
+    <p>আপনার ভ্রমণ, আপনার অর্জন</p>
+    <div class="footer-links">
+      <a href="./index.html">হোম</a>
+      <a href="./places.html">পর্যটনস্থান</a>
+      <a href="#leaderboard">লিডারবোর্ড</a>
+    </div>
+    <p>© 2026 ঘুরবো বাংলাদেশ · বাংলাদেশের সৌন্দর্য আবিষ্কার করুন</p>
+  </footer>
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     const SUPABASE_URL =
       "https://hbllzgylzemdszsbetkl.supabase.co";
 
+    // এখানে আপনার আগের dashboard.html-এর একই anon public key রাখুন।
     const SUPABASE_ANON_KEY =
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhibGx6Z3lsemVtZHN6c2JldGtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTA5MjksImV4cCI6MjEwNjgyNjkyOX0.Qsx2bG000YHhzoyObbXZBxE8wPrrtjvonnplqGyyX5w";
 
@@ -147,11 +585,21 @@
     const notice = document.getElementById("notice");
     const historyList = document.getElementById("historyList");
 
+    function formatPoints(value) {
+      return Number(value || 0).toLocaleString("en-US", {
+        maximumFractionDigits: 2
+      });
+    }
+
+    function showMessage(message) {
+      notice.textContent = message;
+    }
+
     async function loadDashboard() {
       try {
-        if (SUPABASE_ANON_KEY.includes("এখানে login.html")) {
+        if (SUPABASE_ANON_KEY.includes("এখানে আপনার")) {
           throw new Error(
-            "dashboard.html-এ anon public key বসানো হয়নি।"
+            "Supabase anon public key বসানো হয়নি।"
           );
         }
 
@@ -166,10 +614,14 @@
         const user = authData.user;
         const name =
           user.user_metadata?.full_name ||
-          user.email ||
+          user.user_metadata?.name ||
+          user.email?.split("@")[0] ||
           "ভ্রমণপ্রেমী";
 
         document.getElementById("userName").textContent = name;
+        document.getElementById("profileName").textContent = name;
+        document.getElementById("profileEmail").textContent =
+          user.email || "ইমেইল দেওয়া নেই";
 
         const { data: visits, error } = await sb
           .from("place_visits")
@@ -179,48 +631,102 @@
         if (error) throw error;
 
         const records = visits || [];
-        const points = records.reduce(
-          (sum, item) => sum + Number(item.points || 0), 0
+        const total = records.reduce(
+          (sum, item) => sum + Number(item.points || 0),
+          0
         );
 
         document.getElementById("totalPoints").textContent =
-          points.toFixed(2);
+          formatPoints(total);
         document.getElementById("visitedCount").textContent =
           records.length;
+        document.getElementById("profileVisits").textContent =
+          records.length;
+        document.getElementById("profilePoints").textContent =
+          formatPoints(total);
+
+        document.getElementById("travelStatus").textContent =
+          records.length ? "চলমান" : "শুরু করুন";
+
+        // অগ্রগতি বারটি শুধু ভ্রমণ জমা দেওয়ার ধারাবাহিকতা বোঝায়।
+        // এটি কোনো নির্দিষ্ট সর্বোচ্চ পয়েন্টের দাবি নয়।
+        const progress = Math.min(records.length * 10, 100);
+        document.getElementById("progressFill").style.width =
+          progress + "%";
+        document.getElementById("progressPercent").textContent =
+          progress + "%";
+        document.getElementById("progressText").textContent =
+          records.length
+            ? records.length + "টি ভ্রমণ জমা হয়েছে"
+            : "এখনো প্রথম ভ্রমণ জমা হয়নি";
 
         historyList.replaceChildren();
 
-        if (records.length === 0) {
-          notice.textContent =
-            "এখনো কোনো ভ্রমণ জমা হয়নি। প্রথম স্থানটি নির্বাচন করুন!";
+        if (!records.length) {
+          const empty = document.createElement("div");
+          empty.className = "empty";
+
+          const icon = document.createElement("div");
+          icon.className = "empty-icon";
+          icon.textContent = "🧭";
+
+          const message = document.createElement("div");
+          message.textContent =
+            "এখনো কোনো ভ্রমণ জমা হয়নি। আপনার প্রথম দর্শনীয় স্থানটি ঘুরে দেখুন!";
+
+          const link = document.createElement("a");
+          link.href = "./places.html";
+          link.className = "btn btn-green";
+          link.style.marginTop = "13px";
+          link.textContent = "স্থান নির্বাচন করুন";
+
+          empty.append(icon, message, link);
+          historyList.appendChild(empty);
+          showMessage("আপনার ভ্রমণের হিসাব এখানে দেখা যাবে।");
         } else {
-          notice.textContent = "আপনার জমা দেওয়া ভ্রমণগুলো:";
+          showMessage("আপনার জমা দেওয়া ভ্রমণগুলো:");
+
           records.forEach((item) => {
             const row = document.createElement("div");
-            row.className = "visit";
+            row.className = "history-row";
 
-            const place = document.createElement("span");
+            const icon = document.createElement("div");
+            icon.className = "place-icon";
+            icon.textContent = "📍";
+
+            const info = document.createElement("div");
+            info.className = "place-info";
+
+            const place = document.createElement("strong");
             place.textContent = item.place_name || "অজানা স্থান";
 
-            const score = document.createElement("strong");
-            score.textContent =
-              "+" + Number(item.points || 0).toFixed(2) + " পয়েন্ট";
+            const detail = document.createElement("small");
+            detail.textContent = "ভ্রমণ সম্পন্ন";
 
-            row.append(place, score);
+            info.append(place, detail);
+
+            const score = document.createElement("span");
+            score.className = "points-pill";
+            score.textContent =
+              "+" + formatPoints(item.points) + " পয়েন্ট";
+
+            row.append(icon, info, score);
             historyList.appendChild(row);
           });
         }
       } catch (error) {
-        notice.textContent = "তথ্য লোড হয়নি: " + error.message;
+        console.error(error);
+        showMessage("তথ্য লোড হয়নি: " + error.message);
       }
     }
 
     document.getElementById("logoutBtn").addEventListener(
-      "click", async () => {
+      "click",
+      async () => {
         const { error } = await sb.auth.signOut();
 
         if (error) {
-          notice.textContent = "লগআউট করা যায়নি: " + error.message;
+          showMessage("লগআউট করা যায়নি: " + error.message);
           return;
         }
 
@@ -231,4 +737,4 @@
     loadDashboard();
   </script>
 </body>
-</html>
+  </html>
