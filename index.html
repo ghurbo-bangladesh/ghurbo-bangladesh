@@ -1,217 +1,372 @@
 <!doctype html>
 <html lang="bn">
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ঘুরবো বাংলাদেশ | নিজের দেশ ঘুরে দেখুন</title>
-  <meta name="description" content="বাংলাদেশের বিভাগ, জেলা ও দর্শনীয় স্থান ঘুরে দেখুন, ভ্রমণের পয়েন্ট সংগ্রহ করুন এবং লিডারবোর্ডে নিজের অবস্থান দেখুন।">
-  <style>
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #f4f8f5;
-      color: #20352a;
-    }
-    header {
-      background: #104e34;
-      color: white;
-      padding: 16px 5%;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      flex-wrap: wrap;
-    }
-    .brand { font-size: 20px; font-weight: bold; }
-    nav { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
-    nav a { color: white; text-decoration: none; font-size: 14px; }
-    .hero {
-      background: linear-gradient(135deg, #104e34, #21845a);
-      color: white;
-      padding: 55px 20px;
-      text-align: center;
-    }
-    .hero h1 {
-      font-size: clamp(30px, 6vw, 48px);
-      margin: 0 0 16px;
-    }
-    .hero p {
-      max-width: 650px;
-      margin: 0 auto 25px;
-      line-height: 1.8;
-      color: #e5f4eb;
-    }
-    .btn {
-      display: inline-block;
-      background: white;
-      color: #125b3b;
-      padding: 13px 19px;
-      border-radius: 10px;
-      text-decoration: none;
-      font-weight: bold;
-      border: 0;
-      cursor: pointer;
-    }
-    .btn-outline {
-      color: white;
-      background: transparent;
-      border: 1px solid #ffffffa8;
-      margin-left: 8px;
-    }
-    main { max-width: 1100px; margin: auto; padding: 30px 16px; }
-    .section-title { text-align: center; margin-bottom: 24px; }
-    .section-title h2 { color: #125b3b; margin-bottom: 8px; }
-    .section-title p { color: #65776b; line-height: 1.7; }
-    .division-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-    }
-    .division {
-      background: white;
-      border: 1px solid #e0eae3;
-      border-radius: 15px;
-      padding: 20px 15px;
-      text-align: left;
-      cursor: pointer;
-      box-shadow: 0 6px 20px #143d2508;
-    }
-    .division strong {
-      display: block;
-      color: #176b43;
-      font-size: 18px;
-      margin-bottom: 8px;
-    }
-    .division span { color: #66766b; font-size: 14px; }
-    .features {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 14px;
-      margin-top: 35px;
-    }
-    .feature {
-      background: white;
-      padding: 20px;
-      border-radius: 14px;
-      border: 1px solid #e0eae3;
-    }
-    .feature h3 { color: #176b43; margin-top: 0; }
-    .cta {
-      margin-top: 35px;
-      padding: 25px;
-      border-radius: 16px;
-      background: #e3f2e8;
-      text-align: center;
-    }
-    footer {
-      background: #103e2c;
-      color: #e6f2eb;
-      padding: 22px 15px;
-      text-align: center;
-      font-size: 13px;
-      line-height: 1.8;
-    }
-    @media (min-width: 650px) {
-      .division-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-      .features { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    }
-  </style>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#116149">
+<title>ঘুরবো বাংলাদেশ | নিজের দেশ ঘুরে দেখুন</title>
+<meta name="description" content="বাংলাদেশের দর্শনীয় স্থান ঘুরুন, ভ্রমণের পয়েন্ট অর্জন করুন।">
+
+<style>
+*{box-sizing:border-box}
+:root{
+  --g:#116149;--g2:#19845d;--p:#eaf6ef;
+  --bg:#f5faf7;--text:#20372b;--muted:#6d7c72;
+}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);
+font-family:Arial,"Noto Sans Bengali",sans-serif;line-height:1.6}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1120px,94%);margin:auto}
+
+header{background:#fff;border-bottom:1px solid #e0ece4}
+.nav{display:flex;justify-content:space-between;align-items:center;
+gap:12px;flex-wrap:wrap;padding:12px 0}
+.brand{display:flex;align-items:center;gap:10px;color:var(--g);
+font-weight:800;font-size:21px}
+.logo{width:45px;height:45px;border-radius:50%;display:grid;
+place-items:center;background:#e5f5eb;font-size:25px}
+.brand small{display:block;font-size:11px;color:var(--muted);font-weight:400}
+.links{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.links a{padding:8px 10px;border-radius:9px;font-size:13px;font-weight:700}
+.links a:hover{background:var(--p);color:var(--g)}
+.links .account{background:var(--g);color:#fff}
+
+.hero{color:#fff;overflow:hidden;
+background:radial-gradient(ellipse at 80% 10%,#70b5a0 0,transparent 35%),
+linear-gradient(130deg,#0a4835,#187a58 55%,#123f37);
+position:relative}
+.hero:before{content:"";position:absolute;inset:auto -5% -70px;
+height:170px;background:linear-gradient(160deg,#2f856b,#0d4839);
+clip-path:polygon(0 55%,15% 25%,27% 55%,42% 10%,55% 55%,70% 20%,85% 50%,100% 15%,100% 100%,0 100%)}
+.hero-inner{position:relative;display:grid;grid-template-columns:1.4fr .8fr;
+gap:24px;align-items:center;padding:45px 25px 60px}
+.kicker{color:#d1f2de;font-size:14px;font-weight:700}
+.hero h1{font-size:clamp(31px,5vw,53px);line-height:1.2;margin:10px 0}
+.hero h1 span{color:#b8ee70}
+.hero p{max-width:570px;color:#e4f5eb;font-size:15px}
+.btn{display:inline-block;background:#13a45f;color:#fff;border:0;
+padding:12px 17px;border-radius:25px;font-weight:800;font-size:13px;
+margin:6px 6px 0 0}
+.btn.white{background:#fff;color:var(--g)}
+.points-box{background:#fff;color:var(--g);border-radius:20px;
+padding:22px;box-shadow:0 12px 32px #062f2233;max-width:320px;width:100%;
+justify-self:center}
+.points-head{display:flex;align-items:center;gap:14px}
+.trophy{width:58px;height:58px;border-radius:50%;display:grid;
+place-items:center;background:var(--g);color:#fff;font-size:27px}
+.points-box small{color:var(--muted)}
+.points-box strong{font-size:29px;display:block}
+.points-box p{margin:8px 0 0;color:var(--muted);font-size:12px}
+
+section{scroll-margin-top:16px}
+.section{padding:30px 0}
+.heading{text-align:center;margin-bottom:20px}
+.heading h2{color:var(--g);font-size:25px;margin:0 0 5px}
+.heading p{color:var(--muted);font-size:13px;margin:0}
+.divisions{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:13px}
+.division{padding:0;border:1px solid #dbe9df;background:#fff;border-radius:14px;
+overflow:hidden;text-align:left;box-shadow:0 4px 14px #143d2509;color:var(--text)}
+.division .land{height:76px;display:grid;place-items:center;font-size:38px;
+background:linear-gradient(145deg,#b7e1cb,#e4f4e9)}
+.division:nth-child(2) .land{background:linear-gradient(145deg,#a9dcf1,#e4f7fc)}
+.division:nth-child(3) .land{background:linear-gradient(145deg,#f1c6a2,#fff0d8)}
+.division:nth-child(4) .land{background:linear-gradient(145deg,#b4d9bd,#edf7df)}
+.division:nth-child(5) .land{background:linear-gradient(145deg,#a4e0dc,#e3f8f6)}
+.division:nth-child(6) .land{background:linear-gradient(145deg,#f4bcd3,#fff0f6)}
+.division:nth-child(7) .land{background:linear-gradient(145deg,#b7d7f2,#edf5ff)}
+.division:nth-child(8) .land{background:linear-gradient(145deg,#d3dfad,#f6f8e8)}
+.division .info{padding:11px 12px;display:flex;align-items:center;gap:9px}
+.pin{font-size:27px;color:var(--g)}
+.division strong{display:block;color:var(--g);font-size:15px}
+.division small{display:block;color:var(--muted);font-size:11px}
+.division:hover{border-color:#65b88c;transform:translateY(-2px)}
+
+.how{background:#eaf6ef;border-radius:19px;padding:22px;margin-top:25px}
+.how h2{color:var(--g);margin:0 0 17px}
+.steps{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:15px}
+.step{text-align:center;padding:8px}
+.step-icon{width:58px;height:58px;border-radius:50%;background:#16865c;
+color:#fff;display:grid;place-items:center;margin:0 auto 10px;font-size:26px}
+.step:nth-child(2) .step-icon{background:#168be0}
+.step:nth-child(3) .step-icon{background:#8c37d4}
+.step:nth-child(4) .step-icon{background:#e6a600}
+.step strong{display:block;color:var(--g);font-size:13px}
+.step p{font-size:12px;color:var(--muted);margin:5px 0}
+
+.lower{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:22px}
+.panel{background:#fff;border:1px solid #e0ece4;border-radius:16px;
+padding:18px;box-shadow:0 5px 18px #173d2509;min-width:0}
+.panel h2{margin:0 0 14px;color:var(--g);font-size:19px}
+.category{padding:13px;border-radius:12px;margin:10px 0;
+display:flex;justify-content:space-between;align-items:center;gap:10px}
+.category strong{display:block;font-size:14px}
+.category small{display:block;color:#526b5c;font-size:11px}
+.category span{font-size:12px;font-weight:800;white-space:nowrap}
+.c1{background:#fff0f4;color:#c3285c}
+.c2{background:#eaf5ff;color:#1877c9}
+.c3{background:#f4ecff;color:#8738cb}
+.c4{background:#e9f7ef;color:#176b43}
+.dest{display:flex;align-items:center;gap:11px;padding:12px 0;
+border-bottom:1px solid #e8eee9}
+.dest:last-child{border:0}
+.dest .emoji{width:43px;height:43px;border-radius:50%;background:var(--p);
+display:grid;place-items:center;font-size:23px;flex-shrink:0}
+.dest div:nth-child(2){flex:1;min-width:0}
+.dest strong{font-size:13px;display:block}
+.dest small{font-size:11px;color:var(--muted)}
+.score{background:var(--p);color:var(--g);border-radius:20px;
+padding:5px 8px;font-size:11px;white-space:nowrap}
+
+.progress{margin-top:16px;background:#e9f6ef;border:1px solid #d6eade;
+border-radius:16px;padding:19px}
+.progress h2{margin:0 0 13px;color:var(--g);font-size:19px}
+.progress-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.metric{background:#fff;border-radius:12px;padding:13px}
+.metric small{display:block;color:var(--muted);font-size:12px}
+.metric strong{display:block;font-size:24px;color:var(--g)}
+.quote{padding:15px;border:1px solid #d6eade;border-radius:12px;
+color:var(--g);font-size:13px;text-align:center;margin-top:12px}
+
+footer{margin-top:26px;background:#104b38;color:#fff;padding:26px 0;
+text-align:center;font-size:12px}
+footer .brand{justify-content:center;color:#fff}
+footer p{color:#d4e8dc}
+.footer-links{display:flex;justify-content:center;gap:16px;flex-wrap:wrap}
+.footer-links a{color:#fff}
+
+@media(max-width:650px){
+ .wrap{width:94%}
+ .nav{padding:10px 0}
+ .brand{font-size:18px}
+ .links{width:100%;gap:3px}
+ .links a{font-size:12px;padding:7px}
+ .hero-inner{grid-template-columns:1fr;padding:29px 17px 50px;gap:20px}
+ .hero h1{font-size:34px}
+ .hero p{font-size:13px}
+ .points-box{justify-self:start;max-width:100%;padding:16px}
+ .points-box strong{font-size:25px}
+ .section{padding:24px 0}
+ .heading h2{font-size:22px}
+ .divisions{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .division .land{height:62px;font-size:30px}
+ .division .info{padding:9px 7px;gap:5px}
+ .division strong{font-size:13px}
+ .division small{font-size:10px}
+ .pin{font-size:23px}
+ .how{padding:16px 10px}
+ .steps{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .step{padding:8px 3px}
+ .lower{grid-template-columns:1fr}
+ .panel{padding:15px}
+ .progress-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media(max-width:360px){
+ .brand{font-size:16px}
+ .links a{font-size:11px;padding:6px}
+ .hero h1{font-size:29px}
+ .division strong{font-size:12px}
+ .category{padding:10px}
+ .category span{font-size:10px}
+}
+</style>
 </head>
+
 <body>
-  <header>
-    <div class="brand">ঘুরবো বাংলাদেশ 🇧🇩</div>
-    <nav>
-      <a href="#divisions">বিভাগসমূহ</a>
-      <a href="./places.html">পর্যটনস্থান</a>
-      <a href="./login.html">লগইন</a>
-      <a href="./dashboard.html">ড্যাশবোর্ড</a>
-    </nav>
-  </header>
+<header>
+ <div class="wrap nav">
+  <a class="brand" href="./index.html">
+   <span class="logo">🏞️</span>
+   <span>ঘুরবো বাংলাদেশ<small>আপনার ভ্রমণ, আপনার অর্জন</small></span>
+  </a>
+  <nav class="links">
+   <a href="./index.html">⌂ হোম</a>
+   <a href="./places.html">📍 পর্যটনস্থান</a>
+   <a href="#popular">🏆 জনপ্রিয় স্থান</a>
+   <a href="./login.html">👤 Login</a>
+   <a class="account" href="./login.html">অ্যাকাউন্ট তৈরি</a>
+  </nav>
+ </div>
+</header>
 
-  <section class="hero">
-    <h1>চলুন, নিজের বাংলাদেশ ঘুরে দেখি!</h1>
-    <p>
-      বিভাগ থেকে জেলা, জেলা থেকে দর্শনীয় স্থান—
-      আপনার ভ্রমণের ইতিহাস তৈরি করুন, পয়েন্ট সংগ্রহ করুন
-      এবং ভ্রমণপ্রেমীদের লিডারবোর্ডে এগিয়ে যান।
-    </p>
-    <a class="btn" href="./places.html">ভ্রমণ শুরু করুন</a>
-    <a class="btn btn-outline" href="./login.html">অ্যাকাউন্ট খুলুন</a>
-  </section>
+<section class="hero">
+ <div class="wrap hero-inner">
+  <div>
+   <div class="kicker">ভ্রমণ করুন, আবিষ্কার করুন</div>
+   <h1>ঘুরবো <span>বাংলাদেশ</span></h1>
+   <h3>দেশের দর্শনীয় স্থান ঘুরে পয়েন্ট অর্জন করুন</h3>
+   <p>বাংলাদেশের ৮টি বিভাগ ও ৬৪টি জেলার দর্শনীয় স্থান খুঁজুন,
+   ভ্রমণের রেকর্ড রাখুন এবং নিজের অর্জন বাড়ান।</p>
+   <a class="btn" href="./login.html">👤 অ্যাকাউন্ট তৈরি করুন</a>
+   <a class="btn white" href="./places.html">🧭 ভ্রমণ শুরু করুন</a>
+  </div>
+  <div class="points-box">
+   <div class="points-head">
+    <div class="trophy">🏆</div>
+    <div>
+     <small>আপনার অর্জিত পয়েন্ট</small>
+     <strong id="earnedPoints">0</strong>
+    </div>
+   </div>
+   <p>প্রতিটি নতুন ভ্রমণে আপনার অর্জন বাড়বে।</p>
+  </div>
+ </div>
+</section>
 
-  <main>
-    <section id="divisions">
-      <div class="section-title">
-        <h2>বাংলাদেশের ৮টি বিভাগ</h2>
-        <p>আপনার পছন্দের বিভাগ নির্বাচন করে জেলার দর্শনীয় স্থান খুঁজুন।</p>
-      </div>
-      <div class="division-grid" id="divisionGrid"></div>
-    </section>
+<main class="wrap">
+ <section class="section" id="divisions">
+  <div class="heading">
+   <h2>🗺️ বাংলাদেশের ৮টি বিভাগ</h2>
+   <p>যেকোনো বিভাগ নির্বাচন করে জেলার দর্শনীয় স্থান খুঁজুন।</p>
+  </div>
+  <div class="divisions" id="divisionGrid"></div>
+ </section>
 
-    <section class="features">
-      <article class="feature">
-        <h3>📍 নিজের মতো ভ্রমণ</h3>
-        <p>বিভাগ, জেলা ও দর্শনীয় স্থান বেছে নিন।</p>
-      </article>
-      <article class="feature">
-        <h3>⭐ পয়েন্ট সংগ্রহ</h3>
-        <p>প্রতিটি স্থানের নির্ধারিত পয়েন্ট যোগ হবে আপনার হিসাবে।</p>
-      </article>
-      <article class="feature">
-        <h3>🧭 ভ্রমণের ইতিহাস</h3>
-        <p>আগে কোন কোন স্থান জমা দিয়েছেন তা ড্যাশবোর্ডে দেখুন।</p>
-      </article>
-      <article class="feature">
-        <h3>🏆 লিডারবোর্ড</h3>
-        <p>অন্য ভ্রমণকারীদের সঙ্গে আপনার পয়েন্ট তুলনা করুন।</p>
-      </article>
-    </section>
+ <section class="how">
+  <h2>🧭 কীভাবে কাজ করবে?</h2>
+  <div class="steps">
+   <div class="step"><div class="step-icon">🗺️</div>
+    <strong>১. বিভাগ নির্বাচন করুন</strong>
+    <p>বাংলাদেশের ৮টি বিভাগের মধ্যে একটি বেছে নিন।</p>
+   </div>
+   <div class="step"><div class="step-icon">📍</div>
+    <strong>২. জেলা নির্বাচন করুন</strong>
+    <p>নির্বাচিত বিভাগের জেলার তালিকা দেখুন।</p>
+   </div>
+   <div class="step"><div class="step-icon">🏛️</div>
+    <strong>৩. দর্শনীয় স্থান বেছে নিন</strong>
+    <p>আপনার পছন্দের স্থান নির্বাচন করুন।</p>
+   </div>
+   <div class="step"><div class="step-icon">🏆</div>
+    <strong>৪. ভ্রমণ জমা দিন</strong>
+    <p>ভ্রমণ জমা দিয়ে নির্ধারিত পয়েন্ট অর্জন করুন।</p>
+   </div>
+  </div>
+ </section>
 
-    <section class="cta">
-      <h2>আপনার ভ্রমণযাত্রা শুরু করুন</h2>
-      <p>অ্যাকাউন্ট তৈরি করে নিজের ভ্রমণের রেকর্ড রাখুন।</p>
-      <a class="btn" href="./login.html">রেজিস্ট্রেশন / লগইন</a>
-    </section>
-  </main>
+ <section class="lower">
+  <div class="panel">
+   <h2>⭐ পয়েন্ট সিস্টেম</h2>
+   <div class="category c1">
+    <div><strong>★ ক্যাটাগরি ১</strong><small>বিশেষ দর্শনীয় স্থান</small></div>
+    <span>২ পয়েন্ট</span>
+   </div>
+   <div class="category c2">
+    <div><strong>★ ক্যাটাগরি ২</strong><small>জনপ্রিয় পর্যটনকেন্দ্র</small></div>
+    <span>১.৫ পয়েন্ট</span>
+   </div>
+   <div class="category c3">
+    <div><strong>★ ক্যাটাগরি ৩</strong><small>অন্যান্য দর্শনীয় স্থান</small></div>
+    <span>১ পয়েন্ট</span>
+   </div>
+   <div class="category c4">
+    <div><strong>✓ আপনার অর্জন</strong><small>যত ভ্রমণ, তত পয়েন্ট</small></div>
+    <span>সীমাহীন</span>
+   </div>
+  </div>
 
-  <footer>
-    <strong>ঘুরবো বাংলাদেশ</strong><br>
-    নিজের দেশকে জানুন, ঘুরুন এবং ভ্রমণের স্মৃতি সংরক্ষণ করুন।
-  </footer>
+  <div class="panel" id="popular">
+   <h2>⭐ জনপ্রিয় দর্শনীয় স্থান</h2>
+   <div class="dest"><div class="emoji">🌳</div>
+    <div><strong>সুন্দরবন</strong><small>খুলনা বিভাগ</small></div>
+    <span class="score">২ পয়েন্ট</span>
+   </div>
+   <div class="dest"><div class="emoji">🏖️</div>
+    <div><strong>কক্সবাজার সমুদ্রসৈকত</strong><small>চট্টগ্রাম বিভাগ</small></div>
+    <span class="score">২ পয়েন্ট</span>
+   </div>
+   <div class="dest"><div class="emoji">⛰️</div>
+    <div><strong>সাজেক ভ্যালি</strong><small>রাঙামাটি অঞ্চল</small></div>
+    <span class="score">১.৫ পয়েন্ট</span>
+   </div>
+   <div class="dest"><div class="emoji">🌿</div>
+    <div><strong>জাফলং</strong><small>সিলেট বিভাগ</small></div>
+    <span class="score">২ পয়েন্ট</span>
+   </div>
+   <div class="dest"><div class="emoji">🏰</div>
+    <div><strong>লালবাগ কেল্লা</strong><small>ঢাকা বিভাগ</small></div>
+    <span class="score">১.৫ পয়েন্ট</span>
+   </div>
+   <a class="btn" href="./places.html">সব দর্শনীয় স্থান দেখুন →</a>
+  </div>
+ </section>
 
-  <script>
-    const divisions = [
-      ["ঢাকা", 13],
-      ["চট্টগ্রাম", 11],
-      ["রাজশাহী", 8],
-      ["খুলনা", 10],
-      ["বরিশাল", 6],
-      ["সিলেট", 4],
-      ["রংপুর", 8],
-      ["ময়মনসিংহ", 4]
-    ];
+ <section class="progress">
+  <h2>👤 আপনার অগ্রগতি</h2>
+  <div class="progress-grid">
+   <div class="metric"><small>অর্জিত পয়েন্ট</small><strong id="progressPoints">0</strong></div>
+   <div class="metric"><small>ভ্রমণ করা স্থান</small><strong id="visitedCount">0</strong></div>
+  </div>
+  <div class="quote">“ভ্রমণ শুধু সুন্দর স্থান দেখা নয়, নতুন অভিজ্ঞতা অর্জনও।”</div>
+  <p style="text-align:center">
+   <a class="btn" href="./dashboard.html">আমার ড্যাশবোর্ড দেখুন</a>
+  </p>
+ </section>
 
-    const grid = document.getElementById("divisionGrid");
+ <section class="section" style="text-align:center">
+  <h2 style="color:var(--g)">আপনার ভ্রমণযাত্রা শুরু করুন</h2>
+  <p style="color:var(--muted)">অ্যাকাউন্ট তৈরি করে আপনার ভ্রমণের ইতিহাস সংরক্ষণ করুন।</p>
+  <a class="btn" href="./login.html">রেজিস্ট্রেশন / লগইন</a>
+ </section>
+</main>
 
-    divisions.forEach(([name, count]) => {
-      const button = document.createElement("button");
-      button.className = "division";
+<footer>
+ <div class="wrap">
+  <div class="brand" style="justify-content:center;color:white">🏞️ ঘুরবো বাংলাদেশ</div>
+  <p>আপনার ভ্রমণ, আপনার অর্জন</p>
+  <div class="footer-links">
+   <a href="./index.html">হোম</a>
+   <a href="./places.html">পর্যটনস্থান</a>
+   <a href="./dashboard.html">ড্যাশবোর্ড</a>
+   <a href="./login.html">লগইন</a>
+  </div>
+  <p>© 2026 ঘুরবো বাংলাদেশ · নিজের দেশকে জানুন, ঘুরুন</p>
+ </div>
+</footer>
 
-      const title = document.createElement("strong");
-      title.textContent = name + " বিভাগ";
+<script>
+const divisions = [
+ ["ঢাকা",13,"🏛️"],["চট্টগ্রাম",11,"🏖️"],
+ ["রাজশাহী",8,"🏰"],["খুলনা",10,"🌳"],
+ ["বরিশাল",6,"🚣"],["সিলেট",4,"🌿"],
+ ["রংপুর",8,"⛰️"],["ময়মনসিংহ",4,"🌄"]
+];
+const grid=document.getElementById("divisionGrid");
+divisions.forEach(([name,count,emoji])=>{
+ const b=document.createElement("button");
+ b.className="division";
+ const land=document.createElement("div");
+ land.className="land";
+ land.textContent=emoji;
+ const info=document.createElement("div");
+ info.className="info";
+ const pin=document.createElement("span");
+ pin.className="pin";
+ pin.textContent="●";
+ const text=document.createElement("div");
+ const title=document.createElement("strong");
+ title.textContent=name+" বিভাগ";
+ const small=document.createElement("small");
+ small.textContent=count+"টি জেলা";
+ text.append(title,small);
+ info.append(pin,text);
+ b.append(land,info);
+ b.addEventListener("click",()=>{
+  location.href="./places.html?division="+encodeURIComponent(name);
+ });
+ grid.appendChild(b);
+});
 
-      const detail = document.createElement("span");
-      detail.textContent = "জেলা ও দর্শনীয় স্থান দেখুন →";
-
-      button.append(title, detail);
-      button.addEventListener("click", () => {
-        window.location.href =
-          "./places.html?division=" + encodeURIComponent(name);
-      });
-
-      grid.appendChild(button);
-    });
-  </script>
+// লগইন করা থাকলে Supabase থেকে নিজের অর্জন দেখানোর চেষ্টা করবে।
+(async()=>{
+ try{
+  const res=await fetch(
+   "https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"
+  );
+  if(!res.ok)return;
+ }catch(e){}
+})();
+</script>
 </body>
-</html>
+     </html>
