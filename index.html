@@ -3,140 +3,215 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>ঘুরবো বাংলাদেশ 🇧🇩</title>
-  <link rel="stylesheet" href="./style.css?v=3">
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <title>ঘুরবো বাংলাদেশ | নিজের দেশ ঘুরে দেখুন</title>
+  <meta name="description" content="বাংলাদেশের বিভাগ, জেলা ও দর্শনীয় স্থান ঘুরে দেখুন, ভ্রমণের পয়েন্ট সংগ্রহ করুন এবং লিডারবোর্ডে নিজের অবস্থান দেখুন।">
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f8f5;
+      color: #20352a;
+    }
+    header {
+      background: #104e34;
+      color: white;
+      padding: 16px 5%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .brand { font-size: 20px; font-weight: bold; }
+    nav { display: flex; gap: 14px; flex-wrap: wrap; align-items: center; }
+    nav a { color: white; text-decoration: none; font-size: 14px; }
+    .hero {
+      background: linear-gradient(135deg, #104e34, #21845a);
+      color: white;
+      padding: 55px 20px;
+      text-align: center;
+    }
+    .hero h1 {
+      font-size: clamp(30px, 6vw, 48px);
+      margin: 0 0 16px;
+    }
+    .hero p {
+      max-width: 650px;
+      margin: 0 auto 25px;
+      line-height: 1.8;
+      color: #e5f4eb;
+    }
+    .btn {
+      display: inline-block;
+      background: white;
+      color: #125b3b;
+      padding: 13px 19px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      border: 0;
+      cursor: pointer;
+    }
+    .btn-outline {
+      color: white;
+      background: transparent;
+      border: 1px solid #ffffffa8;
+      margin-left: 8px;
+    }
+    main { max-width: 1100px; margin: auto; padding: 30px 16px; }
+    .section-title { text-align: center; margin-bottom: 24px; }
+    .section-title h2 { color: #125b3b; margin-bottom: 8px; }
+    .section-title p { color: #65776b; line-height: 1.7; }
+    .division-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .division {
+      background: white;
+      border: 1px solid #e0eae3;
+      border-radius: 15px;
+      padding: 20px 15px;
+      text-align: left;
+      cursor: pointer;
+      box-shadow: 0 6px 20px #143d2508;
+    }
+    .division strong {
+      display: block;
+      color: #176b43;
+      font-size: 18px;
+      margin-bottom: 8px;
+    }
+    .division span { color: #66766b; font-size: 14px; }
+    .features {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 35px;
+    }
+    .feature {
+      background: white;
+      padding: 20px;
+      border-radius: 14px;
+      border: 1px solid #e0eae3;
+    }
+    .feature h3 { color: #176b43; margin-top: 0; }
+    .cta {
+      margin-top: 35px;
+      padding: 25px;
+      border-radius: 16px;
+      background: #e3f2e8;
+      text-align: center;
+    }
+    footer {
+      background: #103e2c;
+      color: #e6f2eb;
+      padding: 22px 15px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+    @media (min-width: 650px) {
+      .division-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+      .features { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    }
+  </style>
 </head>
 <body>
+  <header>
+    <div class="brand">ঘুরবো বাংলাদেশ 🇧🇩</div>
+    <nav>
+      <a href="#divisions">বিভাগসমূহ</a>
+      <a href="./places.html">পর্যটনস্থান</a>
+      <a href="./login.html">লগইন</a>
+      <a href="./dashboard.html">ড্যাশবোর্ড</a>
+    </nav>
+  </header>
 
-<header class="topbar">
-  <a class="brand" href="#home">🇧🇩 ঘুরবো বাংলাদেশ</a>
-  <nav>
-    <a href="#home">হোম</a>
-    <a href="#divisions">বিভাগসমূহ</a>
-    <a href="#points">পয়েন্ট নিয়ম</a>
-    <a href="#profile">আমার প্রোফাইল</a>
-    <button id="logoutBtn" class="ghost hidden">Logout</button>
-  </nav>
-</header>
-
-<main>
-  <section id="home" class="hero">
-    <div>
-      <p class="eyebrow">বাংলাদেশ ঘুরুন • পয়েন্ট অর্জন করুন</p>
-      <h1>আপনার ভ্রমণ,<br>আপনার স্কোর!</h1>
-      <p>বাংলাদেশের ৩০০টি জনপ্রিয় দর্শনীয় স্থান ঘুরে নিজের ভ্রমণের হিসাব রাখুন। পয়েন্ট সংগ্রহ করুন এবং অন্য ভ্রমণকারীদের সঙ্গে প্রতিযোগিতা করুন।</p>
-      <div class="actions">
-        <button class="primary" onclick="showAuth('register')">Account তৈরি করুন</button>
-        <button class="secondary" onclick="showAuth('login')">Login</button>
-        <a class="secondary button-link" href="#divisions">ঘুরতে শুরু করুন</a>
-      </div>
-    </div>
-    <div class="hero-card">
-      <div class="flag">🧭</div>
-      <p>সর্বোচ্চ পয়েন্ট</p>
-      <strong>২০০</strong>
-      <small>৩০০টি স্থান ঘুরে অর্জন করুন</small>
-      <div class="mini-stats">
-        <span>🏆 লক্ষ্য: ২০০ পয়েন্ট</span>
-        <span>🎯 পাশ: ৫০ পয়েন্ট</span>
-      </div>
-    </div>
+  <section class="hero">
+    <h1>চলুন, নিজের বাংলাদেশ ঘুরে দেখি!</h1>
+    <p>
+      বিভাগ থেকে জেলা, জেলা থেকে দর্শনীয় স্থান—
+      আপনার ভ্রমণের ইতিহাস তৈরি করুন, পয়েন্ট সংগ্রহ করুন
+      এবং ভ্রমণপ্রেমীদের লিডারবোর্ডে এগিয়ে যান।
+    </p>
+    <a class="btn" href="./places.html">ভ্রমণ শুরু করুন</a>
+    <a class="btn btn-outline" href="./login.html">অ্যাকাউন্ট খুলুন</a>
   </section>
 
-  <section id="dashboard" class="dashboard hidden">
-    <div class="welcome">
-      <div>
-        <p class="eyebrow">আপনার Dashboard</p>
-        <h2>স্বাগতম, <span id="userName">Traveler</span>!</h2>
+  <main>
+    <section id="divisions">
+      <div class="section-title">
+        <h2>বাংলাদেশের ৮টি বিভাগ</h2>
+        <p>আপনার পছন্দের বিভাগ নির্বাচন করে জেলার দর্শনীয় স্থান খুঁজুন।</p>
       </div>
-      <div class="score">
-        <small>আপনার পয়েন্ট</small>
-        <strong id="userPoints">0.00</strong>
-        <span>/ 200</span>
-      </div>
-    </div>
-    <div class="stats">
-      <div><b id="visitedCount">0</b><span>সম্পন্ন স্থান</span></div>
-      <div><b id="badgeCount">0</b><span>অর্জিত ব্যাজ</span></div>
-      <div><b>৫০</b><span>পাশের পয়েন্ট</span></div>
-    </div>
-  </section>
+      <div class="division-grid" id="divisionGrid"></div>
+    </section>
 
-  <section id="divisions" class="section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Explore Bangladesh</p>
-        <h2>আপনি কোন বিভাগ ঘুরবেন?</h2>
-        <p>বিভাগ নির্বাচন করে আপনার পছন্দের জেলা ও দর্শনীয় স্থান খুঁজুন।</p>
-      </div>
-      <span class="pill">৮টি বিভাগ • ৩০০টি স্থান</span>
-    </div>
-
-    <div class="division-grid">
-      <a class="division-card" href="./places.html?division=barishal"><span>🚤</span><b>বরিশাল</b><small>নদী ও প্রকৃতি</small></a>
-      <a class="division-card" href="./places.html?division=chattogram"><span>🌊</span><b>চট্টগ্রাম</b><small>পাহাড় ও সমুদ্র</small></a>
-      <a class="division-card" href="./places.html?division=dhaka"><span>🏙️</span><b>ঢাকা</b><small>ঐতিহ্য ও নগর</small></a>
-      <a class="division-card" href="./places.html?division=khulna"><span>🐅</span><b>খুলনা</b><small>বন ও বন্যপ্রাণী</small></a>
-      <a class="division-card" href="./places.html?division=mymensingh"><span>🌾</span><b>ময়মনসিংহ</b><small>সবুজ বাংলার রূপ</small></a>
-      <a class="division-card" href="./places.html?division=rajshahi"><span>🥭</span><b>রাজশাহী</b><small>ইতিহাস ও আমের দেশ</small></a>
-      <a class="division-card" href="./places.html?division=rangpur"><span>🌿</span><b>রংপুর</b><small>প্রকৃতি ও ঐতিহ্য</small></a>
-      <a class="division-card" href="./places.html?division=sylhet"><span>🍃</span><b>সিলেট</b><small>চা-বাগান ও ঝরনা</small></a>
-    </div>
-  </section>
-
-  <section id="points" class="section">
-    <div class="section-head">
-      <div>
-        <p class="eyebrow">Point System</p>
-        <h2>পয়েন্ট কীভাবে পাবেন?</h2>
-        <p>সব ৩০০টি স্থানের পয়েন্ট যোগ করলে সর্বোচ্চ ২০০ পয়েন্ট হবে।</p>
-      </div>
-    </div>
-    <div class="point-grid">
-      <article class="point-card">
-        <span>🥇</span><h3>ক্যাটাগরি ১</h3>
-        <strong>২ পয়েন্ট</strong>
-        <p>৫০টি স্থান • মোট ১০০ পয়েন্ট</p>
+    <section class="features">
+      <article class="feature">
+        <h3>📍 নিজের মতো ভ্রমণ</h3>
+        <p>বিভাগ, জেলা ও দর্শনীয় স্থান বেছে নিন।</p>
       </article>
-      <article class="point-card">
-        <span>🥈</span><h3>ক্যাটাগরি ২</h3>
-        <strong>১ পয়েন্ট</strong>
-        <p>১০০টি স্থান • মোট ১০০ পয়েন্ট</p>
+      <article class="feature">
+        <h3>⭐ পয়েন্ট সংগ্রহ</h3>
+        <p>প্রতিটি স্থানের নির্ধারিত পয়েন্ট যোগ হবে আপনার হিসাবে।</p>
       </article>
-      <article class="point-card">
-        <span>🥉</span><h3>ক্যাটাগরি ৩</h3>
-        <strong>প্রতি স্থানে ⅔ পয়েন্ট</strong>
-        <p>১৫০টি স্থান • মোট ১০০ পয়েন্ট</p>
+      <article class="feature">
+        <h3>🧭 ভ্রমণের ইতিহাস</h3>
+        <p>আগে কোন কোন স্থান জমা দিয়েছেন তা ড্যাশবোর্ডে দেখুন।</p>
       </article>
-    </div>
-    <p class="notice">📌 কোনো স্থানের পয়েন্ট একবারই পাওয়া যাবে। ৫০ পয়েন্ট অর্জন করলে আপনার লক্ষ্য পূরণ হবে।</p>
-  </section>
+      <article class="feature">
+        <h3>🏆 লিডারবোর্ড</h3>
+        <p>অন্য ভ্রমণকারীদের সঙ্গে আপনার পয়েন্ট তুলনা করুন।</p>
+      </article>
+    </section>
 
-  <section class="section steps">
-    <p class="eyebrow">সহজ ৩টি ধাপ</p>
-    <h2>কীভাবে শুরু করবেন?</h2>
-    <div class="step-grid">
-      <div><span>১</span><h3>অ্যাকাউন্ট তৈরি</h3><p>নিজের নাম ও ইমেইল দিয়ে নিবন্ধন করুন।</p></div>
-      <div><span>২</span><h3>স্থান নির্বাচন</h3><p>বিভাগ, জেলা এবং দর্শনীয় স্থান খুঁজুন।</p></div>
-      <div><span>৩</span><h3>পয়েন্ট সংগ্রহ</h3><p>ভ্রমণ সম্পন্ন করে পয়েন্ট অর্জন করুন।</p></div>
-    </div>
-  </section>
+    <section class="cta">
+      <h2>আপনার ভ্রমণযাত্রা শুরু করুন</h2>
+      <p>অ্যাকাউন্ট তৈরি করে নিজের ভ্রমণের রেকর্ড রাখুন।</p>
+      <a class="btn" href="./login.html">রেজিস্ট্রেশন / লগইন</a>
+    </section>
+  </main>
 
-  <section id="profile" class="section">
-    <div class="profile-card">
-      <div class="avatar">👤</div>
-      <div>
-        <p class="eyebrow">আমার প্রোফাইল</p>
-        <h2 id="profileName">অতিথি</h2>
-        <p id="profileEmail">আপনার অ্যাকাউন্টে Login করলে তথ্য দেখা যাবে।</p>
-      </div>
-    </div>
-  </section>
-</main>
+  <footer>
+    <strong>ঘুরবো বাংলাদেশ</strong><br>
+    নিজের দেশকে জানুন, ঘুরুন এবং ভ্রমণের স্মৃতি সংরক্ষণ করুন।
+  </footer>
 
-<footer>© 2026 ঘুরবো বাংলাদেশ 🇧🇩 • ঘুরুন, জানুন, পয়েন্ট অর্জন করুন।</footer>
+  <script>
+    const divisions = [
+      ["ঢাকা", 13],
+      ["চট্টগ্রাম", 11],
+      ["রাজশাহী", 8],
+      ["খুলনা", 10],
+      ["বরিশাল", 6],
+      ["সিলেট", 4],
+      ["রংপুর", 8],
+      ["ময়মনসিংহ", 4]
+    ];
 
-<script src="./app.js?v=3"></script>
+    const grid = document.getElementById("divisionGrid");
+
+    divisions.forEach(([name, count]) => {
+      const button = document.createElement("button");
+      button.className = "division";
+
+      const title = document.createElement("strong");
+      title.textContent = name + " বিভাগ";
+
+      const detail = document.createElement("span");
+      detail.textContent = "জেলা ও দর্শনীয় স্থান দেখুন →";
+
+      button.append(title, detail);
+      button.addEventListener("click", () => {
+        window.location.href =
+          "./places.html?division=" + encodeURIComponent(name);
+      });
+
+      grid.appendChild(button);
+    });
+  </script>
 </body>
 </html>
