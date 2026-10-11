@@ -83,6 +83,70 @@ function updateDashboard(user) {
   dashboard.classList.remove("hidden");
   logoutBtn.classList.remove("hidden");
   hideAuth();
+
+  loadTravelStats(user);
+}
+
+async function loadTravelStats(user) {
+  let box = document.getElementById("travelStats");
+
+  if (!box) {
+    box = document.createElement("div");
+    box.id = "travelStats";
+    box.style.cssText =
+      "background:#e5f3e8;padding:16px;margin:15px 0;border-radius:12px;";
+    dashboard.appendChild(box);
+  }
+
+  box.textContent = "আপনার ভ্রমণের হিসাব লোড হচ্ছে...";
+
+  const { data, error } = await sb
+    .from("place_visits")
+    .select("place_name, points")
+    .eq("user_id", user.id);
+
+  if (error) {
+    console.error(error);
+    box.textContent = "ভ্রমণের হিসাব লোড করা যায়নি।";
+    return;
+  }
+
+  const totalPoints = data.reduce(
+    (sum, visit) => sum + Number(visit.points || 0), 0
+  );
+
+  const uniquePlaces = new Set(
+    data.map(visit => visit.place_name)
+  );
+
+  box.innerHTML = "";
+
+  const heading = document.createElement("h3");
+  heading.textContent = "🇧🇩 আমার ভ্রমণের হিসাব";
+
+  const placesText = document.createElement("p");
+  placesText.textContent =
+    "ভ্রমণ করা স্থান: " + uniquePlaces.size + "টি";
+
+  const pointsText = document.createElement("p");
+  pointsText.textContent =
+    "মোট অর্জিত পয়েন্ট: " + totalPoints;
+
+  box.append(heading, placesText, pointsText);
+}
+  const fullName =
+    user.user_metadata?.full_name ||
+    user.email?.split("@")[0] ||
+    "Traveler";
+
+  document.getElementById("userName").textContent = fullName;
+  document.getElementById("profileName").textContent = fullName;
+  document.getElementById("profileEmail").textContent =
+    user.email || "";
+
+  dashboard.classList.remove("hidden");
+  logoutBtn.classList.remove("hidden");
+  hideAuth();
 }
 
 authForm.addEventListener("submit", async (event) => {
