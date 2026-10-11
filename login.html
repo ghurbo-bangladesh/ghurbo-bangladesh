@@ -1,4 +1,3 @@
-
 <!doctype html>
 <html lang="bn">
 <head>
@@ -7,142 +6,186 @@
   <title>লগইন | ঘুরবো বাংলাদেশ</title>
   <link rel="stylesheet" href="./style.css">
   <style>
-    .auth-wrap {
-      max-width: 480px;
-      margin: 35px auto;
-      padding: 28px;
-      background: white;
-      border: 1px solid #e0eae2;
-      border-radius: 22px;
-      box-shadow: 0 15px 40px #173b2810;
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: linear-gradient(135deg, #e8f7ee, #f4f7fb);
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      box-sizing: border-box;
     }
-    .auth-wrap h1 { color: #104b34; }
-    .auth-wrap .field { margin-bottom: 16px; }
-    .auth-wrap .msg { margin-top: 16px; font-size: 14px; }
-    .auth-wrap .switch {
-      border: 0; background: none; color: #176344;
-      font-weight: bold; padding: 10px; cursor: pointer;
+    .login-card {
+      background: white;
+      width: 100%;
+      max-width: 420px;
+      padding: 26px;
+      border-radius: 20px;
+      box-shadow: 0 12px 40px #12331c18;
+      box-sizing: border-box;
+    }
+    .login-card h1 {
+      color: #176b43;
+      text-align: center;
+      margin-top: 0;
+    }
+    .login-card p {
+      text-align: center;
+      color: #667085;
+    }
+    .login-card label {
+      display: block;
+      margin: 14px 0 6px;
+      font-weight: bold;
+    }
+    .login-card input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #d5ded8;
+      border-radius: 10px;
+      font-size: 16px;
+    }
+    .login-card button {
+      width: 100%;
+      border: 0;
+      border-radius: 10px;
+      padding: 13px;
+      margin-top: 18px;
+      background: #176b43;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .switch {
+      color: #176b43;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    #message {
+      overflow-wrap: anywhere;
+      font-size: 14px;
     }
   </style>
 </head>
 <body>
-  <header class="topbar">
-    <a class="brand" href="./index.html">🇧🇩 ঘুরবো বাংলাদেশ</a>
-    <nav><a href="./index.html">হোম</a></nav>
-  </header>
+  <main class="login-card">
+    <h1>ঘুরবো বাংলাদেশ 🇧🇩</h1>
+    <p id="subtitle">আপনার অ্যাকাউন্টে লগইন করুন</p>
 
-  <main>
-    <section class="auth-wrap">
-      <p class="eyebrow">GHURBO BANGLADESH</p>
-      <h1 id="formTitle">আপনার অ্যাকাউন্টে লগইন করুন</h1>
-      <p>বাংলাদেশ ঘুরুন, নিজের ভ্রমণের গল্প জমা করুন।</p>
-
-      <form id="authForm">
-        <div class="field" id="nameField" hidden>
-          <label for="fullName">আপনার নাম</label>
-          <input id="fullName" type="text"
-                 placeholder="আপনার পূর্ণ নাম" autocomplete="name">
-        </div>
-
-        <div class="field">
-          <label for="email">ইমেইল</label>
-          <input id="email" type="email"
-                 placeholder="আপনার ইমেইল লিখুন"
-                 autocomplete="email" required>
-        </div>
-
-        <div class="field">
-          <label for="password">পাসওয়ার্ড</label>
-          <input id="password" type="password"
-                 placeholder="কমপক্ষে ৬ অক্ষর"
-                 minlength="6" autocomplete="current-password" required>
-        </div>
-
-        <button class="primary wide" id="submitBtn" type="submit">
-          লগইন
-        </button>
-      </form>
-
-      <p id="message" class="msg" role="status" aria-live="polite"></p>
-
-      <div style="margin-top:16px">
-        <span id="switchText">নতুন অ্যাকাউন্ট প্রয়োজন?</span>
-        <button class="switch" id="switchBtn" type="button">
-          রেজিস্ট্রেশন করুন
-        </button>
+    <form id="authForm">
+      <div id="nameArea" hidden>
+        <label for="fullName">আপনার নাম</label>
+        <input id="fullName" type="text" autocomplete="name">
       </div>
-    </section>
+
+      <label for="email">ইমেইল</label>
+      <input id="email" type="email" autocomplete="email" required>
+
+      <label for="password">পাসওয়ার্ড</label>
+      <input id="password" type="password"
+        autocomplete="current-password" minlength="6" required>
+
+      <button id="submitBtn" type="submit">লগইন করুন</button>
+    </form>
+
+    <p id="switchText">
+      নতুন ব্যবহারকারী?
+      <span class="switch" id="switchMode">রেজিস্ট্রেশন করুন</span>
+    </p>
+    <p id="message" role="status"></p>
+    <p><a href="./index.html">হোমপেজে ফিরে যান</a></p>
   </main>
 
-  <footer>© 2026 ঘুরবো বাংলাদেশ 🇧🇩</footer>
-
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
-    const SUPABASE_URL =
-      "https://hbllzgylzemdszsbetkl.supabase.co";
-
-    const SUPABASE_ANON_KEY =
-      "এখানে আপনার দেওয়া সম্পূর্ণ Anon Key বসান";
+    const SUPABASE_URL = "https://hbllzgylzemdszsbetkl.supabase.co";
+    const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhibGx6Z3lsemVtZHN6c2JldGtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTA5MjksImV4cCI6MjEwNjgyNjkyOX0.Qsx2bG000YHhzoyObbXZBxE8wPrrtjvonnplqGyyX5w";
 
     const sb = window.supabase.createClient(
       SUPABASE_URL,
       SUPABASE_ANON_KEY
     );
 
+    let isSignup = false;
+
     const form = document.getElementById("authForm");
-    const nameField = document.getElementById("nameField");
+    const nameArea = document.getElementById("nameArea");
     const fullName = document.getElementById("fullName");
     const email = document.getElementById("email");
     const password = document.getElementById("password");
-    const message = document.getElementById("message");
     const submitBtn = document.getElementById("submitBtn");
-    const formTitle = document.getElementById("formTitle");
-    const switchBtn = document.getElementById("switchBtn");
+    const switchMode = document.getElementById("switchMode");
     const switchText = document.getElementById("switchText");
+    const subtitle = document.getElementById("subtitle");
+    const message = document.getElementById("message");
 
-    let isSignup = false;
-
-    function showMessage(text, isError = false) {
-      message.textContent = text;
-      message.style.color = isError ? "#b42318" : "#176344";
-    }
-
-    switchBtn.addEventListener("click", () => {
+    switchMode.addEventListener("click", () => {
       isSignup = !isSignup;
-      nameField.hidden = !isSignup;
+      nameArea.hidden = !isSignup;
       fullName.required = isSignup;
-
-      formTitle.textContent = isSignup
+      password.autocomplete = isSignup
+        ? "new-password" : "current-password";
+      submitBtn.textContent = isSignup
+        ? "অ্যাকাউন্ট তৈরি করুন" : "লগইন করুন";
+      subtitle.textContent = isSignup
         ? "নতুন অ্যাকাউন্ট তৈরি করুন"
         : "আপনার অ্যাকাউন্টে লগইন করুন";
+      switchText.innerHTML = isSignup
+        ? 'আগে অ্যাকাউন্ট আছে? <span class="switch" id="switchMode">লগইন করুন</span>'
+        : 'নতুন ব্যবহারকারী? <span class="switch" id="switchMode">রেজিস্ট্রেশন করুন</span>';
+      message.textContent = "";
 
-      submitBtn.textContent = isSignup
-        ? "রেজিস্ট্রেশন করুন"
-        : "লগইন";
-
-      switchText.textContent = isSignup
-        ? "আগে থেকেই অ্যাকাউন্ট আছে?"
-        : "নতুন অ্যাকাউন্ট প্রয়োজন?";
-
-      switchBtn.textContent = isSignup
-        ? "লগইন করুন"
-        : "রেজিস্ট্রেশন করুন";
-
-      password.autocomplete = isSignup
-        ? "new-password"
-        : "current-password";
-
-      showMessage("");
+      document.getElementById("switchMode").addEventListener(
+        "click", () => {
+          isSignup = !isSignup;
+          nameArea.hidden = !isSignup;
+          fullName.required = isSignup;
+          submitBtn.textContent = isSignup
+            ? "অ্যাকাউন্ট তৈরি করুন" : "লগইন করুন";
+          subtitle.textContent = isSignup
+            ? "নতুন অ্যাকাউন্ট তৈরি করুন"
+            : "আপনার অ্যাকাউন্টে লগইন করুন";
+          switchText.innerHTML = isSignup
+            ? 'আগে অ্যাকাউন্ট আছে? <span class="switch" id="switchMode">লগইন করুন</span>'
+            : 'নতুন ব্যবহারকারী? <span class="switch" id="switchMode">রেজিস্ট্রেশন করুন</span>';
+          message.textContent = "";
+          attachSwitch();
+        }, { once: true }
+      );
     });
+
+    function attachSwitch() {
+      const el = document.getElementById("switchMode");
+      if (el) el.addEventListener("click", () => {
+        isSignup = !isSignup;
+        nameArea.hidden = !isSignup;
+        fullName.required = isSignup;
+        submitBtn.textContent = isSignup
+          ? "অ্যাকাউন্ট তৈরি করুন" : "লগইন করুন";
+        subtitle.textContent = isSignup
+          ? "নতুন অ্যাকাউন্ট তৈরি করুন"
+          : "আপনার অ্যাকাউন্টে লগইন করুন";
+        switchText.innerHTML = isSignup
+          ? 'আগে অ্যাকাউন্ট আছে? <span class="switch" id="switchMode">লগইন করুন</span>'
+          : 'নতুন ব্যবহারকারী? <span class="switch" id="switchMode">রেজিস্ট্রেশন করুন</span>';
+        message.textContent = "";
+        attachSwitch();
+      }, { once: true });
+    }
 
     form.addEventListener("submit", async (event) => {
       event.preventDefault();
-
+      message.textContent = "একটু অপেক্ষা করুন...";
       submitBtn.disabled = true;
-      submitBtn.textContent = "অপেক্ষা করুন...";
-      showMessage("");
 
       try {
+        if (SUPABASE_ANON_KEY.includes("এখানে আপনার")) {
+          throw new Error("Supabase anon public key বসানো হয়নি।");
+        }
+
         let result;
 
         if (isSignup) {
@@ -150,48 +193,29 @@
             email: email.value.trim(),
             password: password.value,
             options: {
-              data: {
-                full_name: fullName.value.trim()
-              },
-              emailRedirectTo:
-                window.location.origin +
-                "/ghurbo-bangladesh/login.html"
+              data: { full_name: fullName.value.trim() }
             }
           });
-
-          if (result.error) throw result.error;
-
-          if (result.data.session) {
-            window.location.href = "./dashboard.html";
-            return;
-          }
-
-          showMessage(
-            "অ্যাকাউন্ট তৈরি হয়েছে। ইমেইলে যাচাইকরণ লিংক এলে সেটিতে চাপ দিন, তারপর লগইন করুন।"
-          );
         } else {
           result = await sb.auth.signInWithPassword({
             email: email.value.trim(),
             password: password.value
           });
+        }
 
-          if (result.error) throw result.error;
+        if (result.error) throw result.error;
 
-          showMessage("লগইন সফল! ড্যাশবোর্ড খুলছে...");
-
-          window.location.href = "./dashboard.html";
+        if (isSignup && !result.data.session) {
+          message.textContent =
+            "অ্যাকাউন্ট তৈরি হয়েছে। ইমেইলে ভেরিফিকেশন লিংক এলে সেটিতে চাপ দিন, তারপর লগইন করুন।";
           return;
         }
+
+        window.location.href = "./dashboard.html";
       } catch (error) {
-        showMessage(
-          error.message || "সমস্যা হয়েছে। আবার চেষ্টা করুন।",
-          true
-        );
+        message.textContent = "সমস্যা: " + error.message;
       } finally {
         submitBtn.disabled = false;
-        submitBtn.textContent = isSignup
-          ? "রেজিস্ট্রেশন করুন"
-          : "লগইন";
       }
     });
   </script>
