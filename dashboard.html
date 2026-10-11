@@ -3,96 +3,232 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard | ঘুরবো বাংলাদেশ</title>
+  <title>আমার ড্যাশবোর্ড | ঘুরবো বাংলাদেশ</title>
   <link rel="stylesheet" href="./style.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f3f7f5;
+      color: #20352a;
+    }
+    .topbar {
+      background: #125b3b;
+      color: white;
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .topbar a { color: white; text-decoration: none; }
+    .topbar button {
+      background: white;
+      color: #125b3b;
+      border: 0;
+      padding: 10px 14px;
+      border-radius: 9px;
+      font-weight: bold;
+    }
+    main {
+      max-width: 1000px;
+      margin: auto;
+      padding: 20px 14px;
+    }
+    .hero {
+      padding: 26px 20px;
+      border-radius: 20px;
+      color: white;
+      background: linear-gradient(120deg, #125b3b, #278b60);
+      margin-bottom: 18px;
+    }
+    .hero h1 { margin: 0 0 8px; }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-bottom: 22px;
+    }
+    .card, .history {
+      background: white;
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: 0 5px 20px #173d2510;
+      overflow-wrap: anywhere;
+    }
+    .number {
+      font-size: 28px;
+      font-weight: bold;
+      color: #176b43;
+      margin-top: 8px;
+    }
+    .action {
+      display: inline-block;
+      padding: 12px 16px;
+      margin: 5px 5px 0 0;
+      background: white;
+      color: #176b43;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .history { margin-top: 18px; }
+    .visit {
+      padding: 13px 0;
+      border-bottom: 1px solid #e6ece8;
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+    }
+    .visit:last-child { border-bottom: 0; }
+    #notice { overflow-wrap: anywhere; }
+    @media (max-width: 600px) {
+      .cards { grid-template-columns: 1fr; }
+      .number { font-size: 25px; }
+    }
+  </style>
 </head>
 <body>
   <header class="topbar">
-    <div class="brand">🇧🇩 <span>ঘুরবো বাংলাদেশ</span></div>
+    <strong>🇧🇩 ঘুরবো বাংলাদেশ</strong>
     <nav>
       <a href="./index.html">হোম</a>
-      <a href="./places.html">পর্যটনস্থল</a>
-      <a href="./login.html">Login</a>
+      &nbsp; | &nbsp;
+      <a href="./places.html">পর্যটনস্থান</a>
+      &nbsp; | &nbsp;
+      <button id="logoutBtn">লগআউট</button>
     </nav>
   </header>
 
   <main>
-    <section class="dashboard">
-      <div class="welcome">
-        <div>
-          <p class="eyebrow">YOUR DASHBOARD</p>
-          <h2>আপনার ভ্রমণ ড্যাশবোর্ড</h2>
-          <p>বাংলাদেশ ঘুরুন, স্মৃতি সংগ্রহ করুন!</p>
-        </div>
-        <div class="score">
-          <small>আপনার মোট পয়েন্ট</small>
-          <strong>0.00</strong>
-          <span>/ 100</span>
-        </div>
-      </div>
+    <section class="hero">
+      <h1>স্বাগতম, <span id="userName">ভ্রমণপ্রেমী</span>!</h1>
+      <p>আপনার ভ্রমণের অর্জনগুলো এক জায়গায় দেখুন।</p>
+      <a class="action" href="./places.html">নতুন স্থান ঘুরে দেখুন</a>
+    </section>
 
-      <div class="stats">
-        <div>
-          <b>0</b>
-          <span>ভ্রমণ করা স্থান</span>
-        </div>
-        <div>
-          <b>0</b>
-          <span>অর্জিত ব্যাজ</span>
-        </div>
-        <div>
-          <b>—</b>
-          <span>লিডারবোর্ড র‍্যাঙ্ক</span>
-        </div>
+    <section class="cards">
+      <div class="card">
+        <div>⭐ মোট অর্জিত পয়েন্ট</div>
+        <div class="number" id="totalPoints">0</div>
+      </div>
+      <div class="card">
+        <div>📍 ভ্রমণ করা স্থান</div>
+        <div class="number" id="visitedCount">0</div>
+      </div>
+      <div class="card">
+        <div>🏆 লিডারবোর্ড</div>
+        <div class="number">চলুন</div>
+        <a href="./index.html#leaderboard">র‍্যাঙ্ক দেখুন</a>
       </div>
     </section>
 
-    <section class="section">
-      <div class="section-head">
-        <div>
-          <p class="eyebrow">YOUR JOURNEY</p>
-          <h2>আপনার ভ্রমণের অগ্রগতি</h2>
-          <p>আপনি ভ্রমণ শুরু করলে এখানে আপনার অগ্রগতি দেখানো হবে।</p>
-        </div>
-      </div>
-      <div class="profile-card">
-        <div class="avatar">🧭</div>
-        <div>
-          <h2>আপনার পরবর্তী গন্তব্য</h2>
-          <p>বাংলাদেশের সুন্দর স্থানগুলো ঘুরে দেখুন।</p>
-          <a href="./places.html">পর্যটনস্থল দেখুন →</a>
-        </div>
-      </div>
+    <section class="history">
+      <h2>🧭 আমার ভ্রমণের ইতিহাস</h2>
+      <p id="notice">আপনার তথ্য লোড হচ্ছে...</p>
+      <div id="historyList"></div>
     </section>
   </main>
 
-  <footer>© 2026 ঘুরবো বাংলাদেশ 🇧🇩</footer>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.js"></script>
-<script>
-const sb = window.supabase.createClient(
-  "https://hbllzgylzemdszsbetkl.supabase.co",
-  "আপনার app.js ফাইলে থাকা একই public anon key এখানে দিন"
-);
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL =
+      "https://hbllzgylzemdszsbetkl.supabase.co";
 
-async function loadDashboard() {
-  const { data, error } = await sb.auth.getUser();
+    const SUPABASE_ANON_KEY =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhibGx6Z3lsemVtZHN6c2JldGtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTA5MjksImV4cCI6MjEwNjgyNjkyOX0.Qsx2bG000YHhzoyObbXZBxE8wPrrtjvonnplqGyyX5w";
 
-  if (error || !data.user) {
-    window.location.href = "./login.html";
-    return;
-  }
+    const sb = window.supabase.createClient(
+      SUPABASE_URL,
+      SUPABASE_ANON_KEY
+    );
 
-  const user = data.user;
-  const name = user.user_metadata?.full_name || user.email.split("@")[0];
+    const notice = document.getElementById("notice");
+    const historyList = document.getElementById("historyList");
 
-  document.querySelector(".welcome h2").textContent =
-    "স্বাগতম, " + name + "!";
+    async function loadDashboard() {
+      try {
+        if (SUPABASE_ANON_KEY.includes("এখানে login.html")) {
+          throw new Error(
+            "dashboard.html-এ anon public key বসানো হয়নি।"
+          );
+        }
 
-  document.querySelector(".profile-card h2").textContent = name;
-  document.querySelector(".profile-card p").textContent = user.email;
-}
+        const { data: authData, error: authError } =
+          await sb.auth.getUser();
 
-loadDashboard();
-</script>
+        if (authError || !authData.user) {
+          window.location.href = "./login.html";
+          return;
+        }
+
+        const user = authData.user;
+        const name =
+          user.user_metadata?.full_name ||
+          user.email ||
+          "ভ্রমণপ্রেমী";
+
+        document.getElementById("userName").textContent = name;
+
+        const { data: visits, error } = await sb
+          .from("place_visits")
+          .select("place_name, points")
+          .eq("user_id", user.id);
+
+        if (error) throw error;
+
+        const records = visits || [];
+        const points = records.reduce(
+          (sum, item) => sum + Number(item.points || 0), 0
+        );
+
+        document.getElementById("totalPoints").textContent =
+          points.toFixed(2);
+        document.getElementById("visitedCount").textContent =
+          records.length;
+
+        historyList.replaceChildren();
+
+        if (records.length === 0) {
+          notice.textContent =
+            "এখনো কোনো ভ্রমণ জমা হয়নি। প্রথম স্থানটি নির্বাচন করুন!";
+        } else {
+          notice.textContent = "আপনার জমা দেওয়া ভ্রমণগুলো:";
+          records.forEach((item) => {
+            const row = document.createElement("div");
+            row.className = "visit";
+
+            const place = document.createElement("span");
+            place.textContent = item.place_name || "অজানা স্থান";
+
+            const score = document.createElement("strong");
+            score.textContent =
+              "+" + Number(item.points || 0).toFixed(2) + " পয়েন্ট";
+
+            row.append(place, score);
+            historyList.appendChild(row);
+          });
+        }
+      } catch (error) {
+        notice.textContent = "তথ্য লোড হয়নি: " + error.message;
+      }
+    }
+
+    document.getElementById("logoutBtn").addEventListener(
+      "click", async () => {
+        const { error } = await sb.auth.signOut();
+
+        if (error) {
+          notice.textContent = "লগআউট করা যায়নি: " + error.message;
+          return;
+        }
+
+        window.location.href = "./login.html";
+      }
+    );
+
+    loadDashboard();
+  </script>
 </body>
 </html>
