@@ -387,10 +387,20 @@ if (districtName) {
       desc.textContent = "পয়েন্ট: " + points;
 
       const note = document.createElement("p");
-      note.className = "point-label";
-      note.textContent = "ভ্রমণ সম্পন্নের পয়েন্ট ব্যবস্থা পরের ধাপে যুক্ত হবে।";
+note.className = "point-label";
+note.textContent = "পয়েন্ট: " + points;
 
-      card.append(title, desc, note);
+const completeBtn = document.createElement("button");
+completeBtn.type = "button";
+completeBtn.textContent = "✓ ভ্রমণ সম্পন্ন";
+completeBtn.style.cssText =
+  "background:#176344;color:white;border:0;border-radius:8px;padding:9px 12px;font-size:13px;width:100%;";
+
+completeBtn.addEventListener("click", () => {
+  alert("বাটনটি কাজ করছে! পয়েন্ট সংরক্ষণের ব্যবস্থা পরের ধাপে যুক্ত হবে।");
+});
+
+card.append(title, note, completeBtn);
       placeList.appendChild(card);
     });
   }
