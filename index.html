@@ -139,6 +139,10 @@ footer p{color:#d4e8dc}
 @media(max-width:650px){
  .wrap{width:94%}
  .nav{padding:10px 0}
+  .nav{padding:10px 0}
+.brand{font-size:18px}
+.links{width:100%;gap:3px}
+.links a{font-size:12px;padding:7px}
  .brand{font-size:18px}
  .links{width:100%;gap:3px}
  .links a{font-size:12px;padding:7px}
@@ -161,7 +165,19 @@ footer p{color:#d4e8dc}
  .lower{grid-template-columns:1fr}
  .panel{padding:15px}
  .progress-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.nav{
+  flex-wrap:wrap;
+  gap:10px;
 }
+.links{
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:flex-start;
+  gap:6px;
+}
+.links a{
+  white-space:nowrap;
+}}
 @media(max-width:360px){
  .brand{font-size:16px}
  .links a{font-size:11px;padding:6px}
