@@ -396,10 +396,6 @@ completeBtn.textContent = "✓ ভ্রমণ সম্পন্ন";
 completeBtn.style.cssText =
   "background:#176344;color:white;border:0;border-radius:8px;padding:9px 12px;font-size:13px;width:100%;";
 
-completeBtn.addEventListener("click", () => {
-  alert("বাটনটি কাজ করছে! পয়েন্ট সংরক্ষণের ব্যবস্থা পরের ধাপে যুক্ত হবে।");
-});
-
 card.append(title, note, completeBtn);
       placeList.appendChild(card);
     });
@@ -432,5 +428,15 @@ card.append(title, note, completeBtn);
   });
 }
 </script>
+  <script>
+const SUPABASE_URL = "https://hbllzgylzemdszsbetkl.supabase.co";
+const SUPABASE_ANON_KEY = "আপনার আগের app.js ফাইলের anon public key এখানে বসান";
+
+const visitDB = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
