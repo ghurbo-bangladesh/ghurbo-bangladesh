@@ -3,173 +3,222 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>বিভাগ ও জেলা | ঘুরবো বাংলাদেশ</title>
-  <link rel="stylesheet" href="./style.css?v=3">
+  <title>বিভাগ, জেলা ও দর্শনীয় স্থান | ঘুরবো বাংলাদেশ</title>
   <style>
-    .browse-head {
-      padding: 28px;
-      background: #e2f2e5;
-      border-radius: 20px;
-      margin-bottom: 22px;
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, "Noto Sans Bengali", sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      color: #20352b;
+      background: #f5f8f5;
     }
-    .browse-head h1 {
+
+    a { color: inherit; text-decoration: none; }
+    button { font: inherit; cursor: pointer; }
+
+    .topbar {
+      background: white;
+      padding: 12px 16px;
+      border-bottom: 1px solid #e0eae2;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .brand {
+      color: #176344;
+      font-size: 17px;
+      font-weight: 800;
+    }
+
+    .home-link {
+      color: #176344;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    main {
+      width: min(100% - 24px, 900px);
+      margin: 16px auto 28px;
+    }
+
+    .intro {
+      background: #e5f3e8;
+      border: 1px solid #d5e9d9;
+      border-radius: 16px;
+      padding: 18px;
+      margin-bottom: 14px;
+    }
+
+    .intro small { color: #176344; font-weight: 700; }
+
+    h1 {
       color: #104b34;
-      margin: 0 0 8px;
+      font-size: 23px;
+      line-height: 1.4;
+      margin: 5px 0;
     }
-    .district-grid {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
+
+    .intro p {
+      margin: 5px 0 0;
+      color: #53685a;
+      font-size: 13px;
     }
-    .district-button {
+
+    .panel {
       background: white;
       border: 1px solid #e0eae2;
-      border-radius: 12px;
-      padding: 15px 10px;
-      color: #176344;
-      font-weight: 700;
-      text-align: left;
+      border-radius: 15px;
+      padding: 15px;
+      margin-bottom: 14px;
     }
-    .district-button:hover {
+
+    .panel-heading {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 13px;
+    }
+
+    h2 {
+      color: #104b34;
+      font-size: 18px;
+      margin: 0;
+    }
+
+    .count {
       background: #eaf5ed;
+      color: #176344;
+      border-radius: 20px;
+      padding: 4px 9px;
+      font-size: 11px;
+      white-space: nowrap;
     }
-    .back-link {
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .item {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      padding: 11px 10px;
+      border: 1px solid #e0eae2;
+      border-radius: 10px;
+      background: #fbfdfb;
+      color: #176344;
+      font-size: 13px;
+      line-height: 1.5;
+      text-align: left;
+      overflow-wrap: anywhere;
+    }
+
+    button.item:hover,
+    a.item:hover {
+      background: #eaf5ed;
+      border-color: #9bc9a7;
+    }
+
+    .back {
       display: inline-block;
-      margin-bottom: 18px;
+      color: #176344;
+      font-weight: 700;
+      font-size: 13px;
+      margin-bottom: 12px;
+    }
+
+    .place-card {
+      padding: 13px;
+      border: 1px solid #e0eae2;
+      border-radius: 12px;
+      margin-top: 10px;
+      background: #fff;
+    }
+
+    .place-card h3 {
+      font-size: 15px;
+      color: #104b34;
+      margin: 0 0 4px;
+    }
+
+    .place-card p {
+      color: #6b7c72;
+      font-size: 12px;
+      margin: 0 0 10px;
+    }
+
+    .point-label {
       color: #176344;
       font-weight: 700;
     }
-    @media (max-width: 600px) {
-      .district-grid {
-        grid-template-columns: repeat(2, minmax(0, 1fr));
-      }
+
+    .message {
+      background: #fff8e7;
+      color: #76551a;
+      padding: 11px;
+      border-radius: 10px;
+      font-size: 13px;
     }
- /* মোবাইলের জন্য ছোট ও সুন্দর ডিজাইন */
-body {
-  font-size: 14px;
-}
 
-.topbar {
-  padding: 10px 4%;
-  gap: 8px;
-}
+    .hidden { display: none !important; }
 
-.brand {
-  font-size: 17px;
-}
+    footer {
+      text-align: center;
+      padding: 18px 12px;
+      background: #104b34;
+      color: white;
+      font-size: 12px;
+    }
 
-.topbar nav a {
-  font-size: 12px;
-  padding: 6px 8px;
-}
+    @media (min-width: 600px) {
+      .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+      .intro { padding: 24px; }
+      h1 { font-size: 27px; }
+      main { margin-top: 22px; }
+    }
 
-main {
-  width: 94%;
-  margin: 14px auto 24px;
-}
-
-.browse-head {
-  padding: 18px 15px;
-  border-radius: 15px;
-  margin-bottom: 14px;
-}
-
-.browse-head h1 {
-  font-size: 23px;
-  line-height: 1.4;
-}
-
-.browse-head p {
-  font-size: 13px;
-  margin-bottom: 0;
-}
-
-.section {
-  padding: 16px 12px;
-  border-radius: 15px;
-}
-
-.section-head {
-  margin-bottom: 15px;
-  gap: 8px;
-}
-
-.section-head h2 {
-  font-size: 19px;
-}
-
-.pill {
-  font-size: 11px;
-  padding: 5px 9px;
-}
-
-.district-grid {
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 9px;
-}
-
-.district-button {
-  min-width: 0;
-  padding: 12px 9px;
-  border-radius: 10px;
-  font-size: 13px;
-  line-height: 1.5;
-  overflow-wrap: anywhere;
-}
-
-.back-link {
-  font-size: 13px;
-  margin-bottom: 12px;
-}
-
-.notice {
-  font-size: 13px;
-  padding: 11px;
-}
-
-footer {
-  padding: 18px 12px;
-  font-size: 12px;
-}
-
-@media (max-width: 360px) {
-  .brand {
-    font-size: 15px;
-  }
-
-  .browse-head h1 {
-    font-size: 21px;
-  }
-
-  .district-button {
-    font-size: 12px;
-    padding: 10px 7px;
-  }
-}
+    @media (max-width: 350px) {
+      .topbar { padding: 10px; }
+      .brand { font-size: 15px; }
+      main { width: calc(100% - 16px); }
+      .panel { padding: 11px; }
+      .item { padding: 9px 7px; font-size: 12px; }
+    }
   </style>
 </head>
 <body>
+
 <header class="topbar">
   <a class="brand" href="./index.html">🇧🇩 ঘুরবো বাংলাদেশ</a>
-  <nav><a href="./index.html">হোমে ফিরে যান</a></nav>
+  <a class="home-link" href="./index.html">হোমে ফিরুন</a>
 </header>
 
 <main>
-  <a class="back-link" href="./index.html#divisions">← সব বিভাগ</a>
+  <a class="back" id="backLink" href="./index.html#divisions">← সব বিভাগ</a>
 
-  <section class="browse-head">
-    <p class="eyebrow">Explore Bangladesh</p>
-    <h1 id="divisionTitle">বাংলাদেশের জেলা</h1>
-    <p>আপনার পছন্দের জেলা নির্বাচন করুন।</p>
+  <section class="intro">
+    <small>EXPLORE BANGLADESH</small>
+    <h1 id="pageTitle">বিভাগ নির্বাচন করুন</h1>
+    <p id="pageDescription">বিভাগ থেকে জেলা, তারপর আপনার পছন্দের দর্শনীয় স্থান বেছে নিন।</p>
   </section>
 
-  <section class="section">
-    <div class="section-head">
-      <h2 id="districtHeading">জেলার তালিকা</h2>
-      <span class="pill" id="districtCount"></span>
+  <section class="panel">
+    <div class="panel-heading">
+      <h2 id="listTitle">বাংলাদেশের বিভাগ</h2>
+      <span class="count" id="listCount">৮ বিভাগ</span>
     </div>
-    <div id="districtGrid" class="district-grid"></div>
-    <p id="message" class="notice hidden"></p>
+    <div class="grid" id="itemGrid"></div>
+    <div id="placeList"></div>
+    <p id="message" class="message hidden"></p>
   </section>
 </main>
 
@@ -179,105 +228,197 @@ footer {
 const divisions = {
   barishal: {
     name: "বরিশাল বিভাগ",
-    districts: [
-      "বরিশাল", "বরগুনা", "ভোলা", "ঝালকাঠি",
-      "পটুয়াখালী", "পিরোজপুর"
-    ]
+    districts: ["বরিশাল","বরগুনা","ভোলা","ঝালকাঠি","পটুয়াখালী","পিরোজপুর"]
   },
   chattogram: {
     name: "চট্টগ্রাম বিভাগ",
-    districts: [
-      "চট্টগ্রাম", "কক্সবাজার", "কুমিল্লা", "ব্রাহ্মণবাড়িয়া",
-      "চাঁদপুর", "ফেনী", "লক্ষ্মীপুর", "নোয়াখালী",
-      "খাগড়াছড়ি", "রাঙ্গামাটি", "বান্দরবান"
-    ]
+    districts: ["চট্টগ্রাম","কক্সবাজার","কুমিল্লা","ব্রাহ্মণবাড়িয়া","চাঁদপুর","ফেনী","লক্ষ্মীপুর","নোয়াখালী","খাগড়াছড়ি","রাঙ্গামাটি","বান্দরবান"]
   },
   dhaka: {
     name: "ঢাকা বিভাগ",
-    districts: [
-      "ঢাকা", "গাজীপুর", "গোপালগঞ্জ", "কিশোরগঞ্জ",
-      "মাদারীপুর", "মানিকগঞ্জ", "মুন্সীগঞ্জ", "নারায়ণগঞ্জ",
-      "নরসিংদী", "রাজবাড়ী", "ফরিদপুর", "শরীয়তপুর",
-      "টাঙ্গাইল"
-    ]
+    districts: ["ঢাকা","গাজীপুর","গোপালগঞ্জ","কিশোরগঞ্জ","মাদারীপুর","মানিকগঞ্জ","মুন্সীগঞ্জ","নারায়ণগঞ্জ","নরসিংদী","রাজবাড়ী","ফরিদপুর","শরীয়তপুর","টাঙ্গাইল"]
   },
   khulna: {
     name: "খুলনা বিভাগ",
-    districts: [
-      "খুলনা", "বাগেরহাট", "চুয়াডাঙ্গা", "যশোর",
-      "ঝিনাইদহ", "কুষ্টিয়া", "মাগুরা", "মেহেরপুর",
-      "নড়াইল", "সাতক্ষীরা"
-    ]
+    districts: ["খুলনা","বাগেরহাট","চুয়াডাঙ্গা","যশোর","ঝিনাইদহ","কুষ্টিয়া","মাগুরা","মেহেরপুর","নড়াইল","সাতক্ষীরা"]
   },
   mymensingh: {
     name: "ময়মনসিংহ বিভাগ",
-    districts: [
-      "ময়মনসিংহ", "জামালপুর", "নেত্রকোণা", "শেরপুর"
-    ]
+    districts: ["ময়মনসিংহ","জামালপুর","নেত্রকোণা","শেরপুর"]
   },
   rajshahi: {
     name: "রাজশাহী বিভাগ",
-    districts: [
-      "রাজশাহী", "বগুড়া", "জয়পুরহাট", "নওগাঁ",
-      "নাটোর", "চাঁপাইনবাবগঞ্জ", "পাবনা", "সিরাজগঞ্জ"
-    ]
+    districts: ["রাজশাহী","বগুড়া","জয়পুরহাট","নওগাঁ","নাটোর","চাঁপাইনবাবগঞ্জ","পাবনা","সিরাজগঞ্জ"]
   },
   rangpur: {
     name: "রংপুর বিভাগ",
-    districts: [
-      "রংপুর", "দিনাজপুর", "গাইবান্ধা", "কুড়িগ্রাম",
-      "লালমনিরহাট", "নীলফামারী", "পঞ্চগড়", "ঠাকুরগাঁও"
-    ]
+    districts: ["রংপুর","দিনাজপুর","গাইবান্ধা","কুড়িগ্রাম","লালমনিরহাট","নীলফামারী","পঞ্চগড়","ঠাকুরগাঁও"]
   },
   sylhet: {
     name: "সিলেট বিভাগ",
-    districts: [
-      "সিলেট", "মৌলভীবাজার", "হবিগঞ্জ", "সুনামগঞ্জ"
-    ]
+    districts: ["সিলেট","মৌলভীবাজার","হবিগঞ্জ","সুনামগঞ্জ"]
   }
 };
 
-const params = new URLSearchParams(window.location.search);
+/* পরিচিত কয়েকটি জেলার প্রাথমিক স্থানতালিকা।
+   তালিকা ধাপে ধাপে আরও বিস্তৃত করা হবে। */
+const places = {
+  "কক্সবাজার": [
+    ["কক্সবাজার সমুদ্রসৈকত", 2],
+    ["হিমছড়ি", 1],
+    ["ইনানী সমুদ্রসৈকত", 1],
+    ["মহেশখালী", 1],
+    ["সোনাদিয়া দ্বীপ", 1]
+  ],
+  "চট্টগ্রাম": [
+    ["পতেঙ্গা সমুদ্রসৈকত", 2],
+    ["ফয়’স লেক", 1],
+    ["বাটালি হিল", 1],
+    ["চন্দ্রনাথ পাহাড়", 1]
+  ],
+  "সিলেট": [
+    ["রাতারগুল জলাবন", 2],
+    ["জাফলং", 2],
+    ["লালাখাল", 1],
+    ["বিছানাকান্দি", 1],
+    ["ভোলাগঞ্জ সাদাপাথর", 1],
+    ["শ্রীপুর", 1]
+  ],
+  "সুনামগঞ্জ": [
+    ["টাঙ্গুয়ার হাওর", 2],
+    ["নীলাদ্রি লেক", 1],
+    ["শিমুল বাগান", 1],
+    ["যাদুকাটা নদী", 1]
+  ],
+  "ঢাকা": [
+    ["লালবাগ কেল্লা", 2],
+    ["আহসান মঞ্জিল", 2],
+    ["জাতীয় সংসদ ভবন এলাকা", 1],
+    ["জাতীয় জাদুঘর", 1]
+  ],
+  "রাঙামাটি": [
+    ["কাপ্তাই হ্রদ", 2],
+    ["ঝুলন্ত সেতু", 1],
+    ["শুভলং ঝরনা", 1]
+  ],
+  "রাঙ্গামাটি": [
+    ["কাপ্তাই হ্রদ", 2],
+    ["ঝুলন্ত সেতু", 1],
+    ["শুভলং ঝরনা", 1]
+  ],
+  "খাগড়াছড়ি": [
+    ["আলুটিলা গুহা", 2],
+    ["রিছাং ঝরনা", 1],
+    ["দীঘিনালা", 1]
+  ],
+  "বান্দরবান": [
+    ["নীলাচল", 2],
+    ["মেঘলা পর্যটন কেন্দ্র", 1],
+    ["স্বর্ণমন্দির", 1]
+  ],
+  "রাজশাহী": [
+    ["পুঠিয়া মন্দির কমপ্লেক্স", 2],
+    ["বরেন্দ্র গবেষণা জাদুঘর", 1],
+    ["পদ্মা নদীর পাড়", 1]
+  ],
+  "বাগেরহাট": [
+    ["ষাট গম্বুজ মসজিদ", 2],
+    ["খান জাহান আলীর মাজার", 1]
+  ],
+  "দিনাজপুর": [
+    ["কান্তজিউ মন্দির", 2],
+    ["রামসাগর দীঘি", 1]
+  ]
+};
+
+const params = new URLSearchParams(location.search);
 const divisionKey = params.get("division");
-const division = divisions[divisionKey];
+const districtName = params.get("district");
 
-const title = document.getElementById("divisionTitle");
-const heading = document.getElementById("districtHeading");
-const grid = document.getElementById("districtGrid");
-const count = document.getElementById("districtCount");
+const pageTitle = document.getElementById("pageTitle");
+const description = document.getElementById("pageDescription");
+const listTitle = document.getElementById("listTitle");
+const listCount = document.getElementById("listCount");
+const grid = document.getElementById("itemGrid");
+const placeList = document.getElementById("placeList");
 const message = document.getElementById("message");
+const backLink = document.getElementById("backLink");
 
-if (!division) {
-  title.textContent = "বিভাগ নির্বাচন করুন";
-  heading.textContent = "৮টি বিভাগ";
-  count.textContent = "৮ বিভাগ";
-  grid.innerHTML = "";
+function makeItem(label, href) {
+  const a = document.createElement("a");
+  a.className = "item";
+  a.href = href;
+  a.textContent = "📍 " + label;
+  return a;
+}
 
-  Object.entries(divisions).forEach(([key, item]) => {
-    const link = document.createElement("a");
-    link.className = "district-button";
-    link.href = "./places.html?division=" + key;
-    link.textContent = "📍 " + item.name;
-    grid.appendChild(link);
+function showMessage(text) {
+  message.textContent = text;
+  message.classList.remove("hidden");
+}
+
+if (districtName) {
+  const knownDivision = Object.entries(divisions).find(
+    ([, value]) => value.districts.includes(districtName)
+  );
+
+  pageTitle.textContent = districtName + " জেলার দর্শনীয় স্থান";
+  description.textContent = "এই জেলার পরিচিত স্থানগুলোর প্রাথমিক তালিকা। আরও স্থান পর্যায়ক্রমে যুক্ত করা হবে।";
+  listTitle.textContent = "দর্শনীয় স্থান";
+  backLink.href = knownDivision
+    ? "./places.html?division=" + knownDivision[0]
+    : "./places.html";
+
+  const districtPlaces = places[districtName] || [];
+  listCount.textContent = districtPlaces.length + "টি স্থান";
+  grid.classList.add("hidden");
+
+  if (districtPlaces.length === 0) {
+    showMessage("এই জেলার জনপ্রিয় দর্শনীয় স্থানগুলোর তালিকা এখনো যুক্ত করা হয়নি। পরবর্তী ধাপে এই জেলার স্থানগুলো যুক্ত করা হবে।");
+  } else {
+    districtPlaces.forEach(([name, points]) => {
+      const card = document.createElement("article");
+      card.className = "place-card";
+
+      const title = document.createElement("h3");
+      title.textContent = name;
+
+      const desc = document.createElement("p");
+      desc.textContent = "পয়েন্ট: " + points;
+
+      const note = document.createElement("p");
+      note.className = "point-label";
+      note.textContent = "ভ্রমণ সম্পন্নের পয়েন্ট ব্যবস্থা পরের ধাপে যুক্ত হবে।";
+
+      card.append(title, desc, note);
+      placeList.appendChild(card);
+    });
+  }
+} else if (divisionKey && divisions[divisionKey]) {
+  const division = divisions[divisionKey];
+
+  pageTitle.textContent = division.name;
+  description.textContent = "আপনার পছন্দের জেলা নির্বাচন করুন।";
+  listTitle.textContent = "জেলা নির্বাচন করুন";
+  listCount.textContent = division.districts.length + "টি জেলা";
+  backLink.href = "./index.html#divisions";
+
+  division.districts.forEach(district => {
+    grid.appendChild(
+      makeItem(district, "./places.html?division=" + divisionKey +
+        "&district=" + encodeURIComponent(district))
+    );
   });
 } else {
-  title.textContent = division.name;
-  heading.textContent = "জেলা নির্বাচন করুন";
-  count.textContent = division.districts.length + "টি জেলা";
+  pageTitle.textContent = "বাংলাদেশের বিভাগ";
+  description.textContent = "প্রথমে বিভাগ নির্বাচন করুন, তারপর জেলা ও দর্শনীয় স্থান দেখুন।";
+  listTitle.textContent = "৮টি বিভাগ";
+  listCount.textContent = "৮ বিভাগ";
 
-  division.districts.forEach((district) => {
-    const button = document.createElement("button");
-    button.className = "district-button";
-    button.type = "button";
-    button.textContent = "📍 " + district;
-
-    button.addEventListener("click", () => {
-      message.textContent =
-        district + " জেলার দর্শনীয় স্থানের তালিকা পরের ধাপে যুক্ত করা হবে।";
-      message.classList.remove("hidden");
-    });
-
-    grid.appendChild(button);
+  Object.entries(divisions).forEach(([key, division]) => {
+    grid.appendChild(
+      makeItem(division.name, "./places.html?division=" + key)
+    );
   });
 }
 </script>
