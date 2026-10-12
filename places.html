@@ -320,7 +320,21 @@ if (requestedDivision) {
   });
 
   if (selected) {
-    showDistricts(selected);
+    if (requestedDistrict && selected.districts.includes(requestedDistrict)) {
+      showDistricts(selected);
+
+      const districtButton = Array.from(
+        districtGrid.querySelectorAll(".district-card")
+      ).find(function(button) {
+        return button.textContent === requestedDistrict;
+      });
+
+      if (districtButton) {
+        showPlaces(requestedDistrict, districtButton);
+      }
+    } else {
+      showDistricts(selected);
+    }
   } else {
     showDivisions();
   }
