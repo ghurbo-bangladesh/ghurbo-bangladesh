@@ -86,6 +86,7 @@ const backButton = document.getElementById("backButton");
 const placesBox = document.getElementById("placesBox");
 
 const params = new URLSearchParams(location.search);
+  const requestedDistrict = params.get("district");
 const requestedDivision = params.get("division");
 const cameFromHome = Boolean(requestedDivision);
 
