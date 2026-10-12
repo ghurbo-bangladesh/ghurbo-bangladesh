@@ -113,8 +113,12 @@ function showDistricts(division) {
     button.className = "card district-card";
     button.textContent = district;
     button.addEventListener("click", function() {
-      showPlaces(district, button);
-    });
+  const url = new URL(window.location.href);
+  url.searchParams.set("division", division.name);
+  url.searchParams.set("district", district);
+  history.pushState({}, "", url);
+  showPlaces(district, button);
+});
     districtGrid.appendChild(button);
   });
 
