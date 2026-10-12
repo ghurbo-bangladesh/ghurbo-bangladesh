@@ -1,0 +1,22 @@
+const placesData = [
+  { name: "লালবাগ কেল্লা", district: "ঢাকা", points: 2 },
+  { name: "আহসান মঞ্জিল", district: "ঢাকা", points: 2 },
+  { name: "কার্জন হল", district: "ঢাকা", points: 1 },
+  { name: "তারা মসজিদ", district: "ঢাকা", points: 1 },
+  { name: "ষাট গম্বুজ মসজিদ", district: "বাগেরহাট", points: 2 },
+  { name: "পাহাড়পুর বৌদ্ধবিহার", district: "নওগাঁ", points: 2 },
+  { name: "মহাস্থানগড়", district: "বগুড়া", points: 2 },
+  { name: "পানাম নগর", district: "নারায়ণগঞ্জ", points: 2 },
+  { name: "শালবন বিহার", district: "কুমিল্লা", points: 2 },
+  { name: "লালন শাহের মাজার", district: "কুষ্টিয়া", points: 1 },
+  { name: "মুজিবনগর স্মৃতিসৌধ", district: "মেহেরপুর", points: 1 },
+  { name: "হজরত শাহজালাল (র.) মাজার", district: "সিলেট", points: 1 },
+  { name: "রাতারগুল সোয়াম্প ফরেস্ট", district: "সিলেট", points: 2 },
+  { name: "টাঙ্গুয়ার হাওর", district: "সুনামগঞ্জ", points: 2 },
+  { name: "সুন্দরবন পূর্ব বনাঞ্চল", district: "বাগেরহাট", points: 2 },
+  { name: "লাউয়াছড়া জাতীয় উদ্যান", district: "মৌলভীবাজার", points: 2 },
+  { name: "সাজেক ভ্যালি", district: "রাঙামাটি", points: 2 },
+  { name: "খৈয়াছড়া ঝরনা", district: "চট্টগ্রাম", points: 2 },
+  { name: "নাফাখুম ঝরনা", district: "বান্দরবান", points: 3 },
+  { name: "কুয়াকাটা প্রধান সমুদ্র সৈকত", district: "পটুয়াখালী", points: 3 }
+];
