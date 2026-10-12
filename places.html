@@ -207,6 +207,66 @@ function showDistricts(division){
 }
 
 function showPlaces(district,button){
+  function showPlaces(district,button){
+  document.querySelectorAll(".district-card").forEach(function(card){
+    card.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+
+  document.getElementById("placesTitle").textContent =
+    district + " — দর্শনীয় স্থান";
+
+  placesSection.classList.remove("hidden");
+
+  const placesBox = placesSection.querySelector(".places-box");
+
+  // places-data.js থেকে নির্বাচিত জেলার স্থান খোঁজা
+  const districtPlaces = placesData.filter(function(place){
+    return place.district === district;
+  });
+
+  if(districtPlaces.length === 0){
+    placesBox.innerHTML =
+      "<strong>এই জেলার তালিকা এখনো যুক্ত হয়নি</strong><br>" +
+      "পরবর্তী ধাপে এই জেলার পর্যটনস্থল যোগ করা হবে।";
+  }else{
+    placesBox.style.textAlign = "left";
+    placesBox.style.border = "1px solid #dbe9df";
+    placesBox.style.borderStyle = "solid";
+    placesBox.style.padding = "16px";
+
+    placesBox.innerHTML = "";
+
+    const heading = document.createElement("h3");
+    heading.textContent = "মোট " + districtPlaces.length + "টি দর্শনীয় স্থান";
+    heading.style.color = "#116149";
+    placesBox.appendChild(heading);
+
+    districtPlaces.forEach(function(place){
+      const item = document.createElement("div");
+      item.style.padding = "12px 0";
+      item.style.borderBottom = "1px solid #e5eee8";
+
+      const name = document.createElement("strong");
+      name.textContent = place.name;
+
+      const points = document.createElement("p");
+      points.textContent = "⭐ পয়েন্ট: " + place.points;
+      points.style.margin = "6px 0 0";
+      points.style.color = "#116149";
+
+      item.appendChild(name);
+      item.appendChild(points);
+      placesBox.appendChild(item);
+    });
+  }
+
+  placesSection.scrollIntoView({
+    behavior:"smooth",
+    block:"start"
+  });
+  }
   document.querySelectorAll(".district-card").forEach(function(card){
     card.classList.remove("selected");
   });
