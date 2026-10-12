@@ -285,7 +285,7 @@ divisions.forEach(function(division) {
   const name = document.createElement("span");
   name.className = "division-name";
   name.textContent = division.name + " বিভাগ";
-
+button.append(photo, name);
   button.addEventListener("click", function() {
   const url = new URL(window.location.href);
   url.searchParams.set("division", division.name);
