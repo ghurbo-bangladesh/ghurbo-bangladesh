@@ -525,34 +525,3 @@ const placesData = [
   { name: "রাজবাড়ী গোয়ালন্দ পদ্মা নদীর পাড়", district: "রাজবাড়ী", points: 1 },
   { name: "ফরিদপুর পদ্মার চর ও নদীর পাড়", district: "ফরিদপুর", points: 1 }
 ];
-
-// একই নাম ও একই জেলার পুনরাবৃত্তি বাদ দেওয়া
-// পয়েন্ট আলাদা থাকলে আপাতত বেশি পয়েন্টটি রাখা হবে
-const uniquePlaces = new Map();
-
-for (const place of placesData) {
-  const name = place.name.trim().replace(/\s+/g, " ");
-  const district = place.district.trim().replace(/\s+/g, " ");
-  const key = `${name}|${district}`;
-
-  const current = uniquePlaces.get(key);
-
-  if (!current || Number(place.points) > Number(current.points)) {
-    uniquePlaces.set(key, {
-      ...place,
-      name,
-      district,
-      points: Number(place.points)
-    });
-  }
-}
-
-const cleanedPlacesData = Array.from(uniquePlaces.values());
-
-if (typeof window !== "undefined") {
-  window.placesData = cleanedPlacesData;
-}
-
-if (typeof module !== "undefined" && module.exports) {
-  module.exports = cleanedPlacesData;
-    }
