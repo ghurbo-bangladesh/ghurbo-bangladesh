@@ -286,10 +286,13 @@ divisions.forEach(function(division) {
   name.className = "division-name";
   name.textContent = division.name + " বিভাগ";
 
-  button.append(photo, name);
   button.addEventListener("click", function() {
-    showDistricts(division);
-  });
+  const url = new URL(window.location.href);
+  url.searchParams.set("division", division.name);
+  url.searchParams.delete("district");
+  history.pushState({}, "", url);
+  showDistricts(division);
+});
 
   divisionGrid.appendChild(button);
 });
