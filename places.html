@@ -223,8 +223,8 @@ function showPlaces(district,button){
 
   // places-data.js থেকে নির্বাচিত জেলার স্থান খোঁজা
   const districtPlaces = placesData.filter(function(place){
-    return place.district === district;
-  });
+    return place.district.trim() === district.trim();
+});
 
   if(districtPlaces.length === 0){
     placesBox.innerHTML =
