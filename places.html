@@ -54,10 +54,19 @@ button{font:inherit;cursor:pointer}
 <div id="placesBox" class="places-box"></div>
 </section>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="./places-data.js?v=5"></script>
 
-<script src="./places-data.js?v=4"></script>
 <script>
-const divisions=[
+const SUPABASE_URL = "https://hbllzgylzemdszsbetkl.supabase.co";
+const SUPABASE_ANON_KEY = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhibGx6Z3lsemVtZHN6c2JldGtsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTEyNTA5MjksImV4cCI6MjEwNjgyNjkyOX0.Qsx2bG000YHhzoyObbXZBxE8wPrrtjvonnplqGyyX5w";
+
+const client = window.supabase.createClient(
+  SUPABASE_URL,
+  SUPABASE_ANON_KEY
+);
+
+const divisions = [
 {name:"ঢাকা",emoji:"🏛️",districts:["ঢাকা","ফরিদপুর","গাজীপুর","গোপালগঞ্জ","কিশোরগঞ্জ","মাদারীপুর","মানিকগঞ্জ","মুন্সিগঞ্জ","নারায়ণগঞ্জ","নরসিংদী","রাজবাড়ী","শরীয়তপুর","টাঙ্গাইল"]},
 {name:"চট্টগ্রাম",emoji:"🏖️",districts:["চট্টগ্রাম","কক্সবাজার","কুমিল্লা","ব্রাহ্মণবাড়িয়া","চাঁদপুর","ফেনী","লক্ষ্মীপুর","নোয়াখালী","খাগড়াছড়ি","রাঙামাটি","বান্দরবান"]},
 {name:"রাজশাহী",emoji:"🏰",districts:["রাজশাহী","বগুড়া","জয়পুরহাট","নওগাঁ","নাটোর","চাঁপাইনবাবগঞ্জ","পাবনা","সিরাজগঞ্জ"]},
@@ -68,111 +77,250 @@ const divisions=[
 {name:"ময়মনসিংহ",emoji:"🌄",districts:["ময়মনসিংহ","জামালপুর","নেত্রকোনা","শেরপুর"]}
 ];
 
-const divisionSection=document.getElementById("divisionSection");
-const districtSection=document.getElementById("districtSection");
-const placesSection=document.getElementById("placesSection");
-const divisionGrid=document.getElementById("divisionGrid");
-const districtGrid=document.getElementById("districtGrid");
-const backButton=document.getElementById("backButton");
-const placesBox=document.getElementById("placesBox");
-const params=new URLSearchParams(location.search);
-const requestedDivision=params.get("division");
-let cameFromHome=Boolean(requestedDivision);
+const divisionSection = document.getElementById("divisionSection");
+const districtSection = document.getElementById("districtSection");
+const placesSection = document.getElementById("placesSection");
+const divisionGrid = document.getElementById("divisionGrid");
+const districtGrid = document.getElementById("districtGrid");
+const backButton = document.getElementById("backButton");
+const placesBox = document.getElementById("placesBox");
 
-function showDivisions(){
-divisionSection.classList.remove("hidden");
-districtSection.classList.add("hidden");
-placesSection.classList.add("hidden");
-backButton.classList.add("hidden");
+const params = new URLSearchParams(location.search);
+const requestedDivision = params.get("division");
+const cameFromHome = Boolean(requestedDivision);
+
+function showDivisions() {
+  divisionSection.classList.remove("hidden");
+  districtSection.classList.add("hidden");
+  placesSection.classList.add("hidden");
+  backButton.classList.add("hidden");
 }
 
-function showDistricts(division){
-divisionSection.classList.add("hidden");
-districtSection.classList.remove("hidden");
-placesSection.classList.add("hidden");
-backButton.classList.remove("hidden");
-document.getElementById("districtTitle").textContent=division.name+" বিভাগের জেলাসমূহ";
-districtGrid.innerHTML="";
-division.districts.forEach(function(district){
-const button=document.createElement("button");
-button.type="button";
-button.className="card district-card";
-button.textContent=district;
-button.addEventListener("click",function(){showPlaces(district,button);});
-districtGrid.appendChild(button);
+function showDistricts(division) {
+  divisionSection.classList.add("hidden");
+  districtSection.classList.remove("hidden");
+  placesSection.classList.add("hidden");
+  backButton.classList.remove("hidden");
+
+  document.getElementById("districtTitle").textContent =
+    division.name + " বিভাগের জেলাসমূহ";
+
+  districtGrid.innerHTML = "";
+
+  division.districts.forEach(function(district) {
+    const button = document.createElement("button");
+    button.type = "button";
+    button.className = "card district-card";
+    button.textContent = district;
+    button.addEventListener("click", function() {
+      showPlaces(district, button);
+    });
+    districtGrid.appendChild(button);
+  });
+
+  window.scrollTo(0, 0);
+}
+
+async function recordVisit(place) {
+  const { data: { user }, error: authError } =
+    await client.auth.getUser();
+
+  if (authError || !user) {
+    alert("পয়েন্ট অর্জন করতে আগে আপনার অ্যাকাউন্টে লগইন করুন।");
+    location.href = "./login.html";
+    return;
+  }
+
+  const placeName = String(place.name).trim();
+  const pointsValue = Number(place.points);
+
+  if (!placeName || !Number.isFinite(pointsValue) || pointsValue < 0) {
+    alert("এই স্থানের নাম বা পয়েন্টের তথ্য সঠিক নয়।");
+    return;
+  }
+
+  const { data: existing, error: checkError } = await client
+    .from("place_visits")
+    .select("id")
+    .eq("user_id", user.id)
+    .eq("place_name", placeName)
+    .limit(1);
+
+  if (checkError) {
+    console.error(checkError);
+    alert("আগের ভ্রমণের রেকর্ড পরীক্ষা করা যায়নি। আবার চেষ্টা করুন।");
+    return;
+  }
+
+  if (existing && existing.length > 0) {
+    alert("এই স্থানের পয়েন্ট আপনি আগেই পেয়েছেন। দ্বিতীয়বার পয়েন্ট পাওয়া যাবে না।");
+    return;
+  }
+
+  const confirmed = confirm(
+    placeName + "\nপয়েন্ট: " + pointsValue +
+    "\n\nএই ভ্রমণটি জমা দিয়ে পয়েন্ট অর্জন করতে চান?"
+  );
+
+  if (!confirmed) return;
+
+  const { error: insertError } = await client
+    .from("place_visits")
+    .insert({
+      user_id: user.id,
+      place_name: placeName,
+      points: pointsValue
+    });
+
+  if (insertError) {
+    console.error(insertError);
+
+    if (insertError.code === "23505") {
+      alert("এই স্থানের পয়েন্ট আপনি আগেই পেয়েছেন।");
+    } else {
+      alert("পয়েন্ট জমা হয়নি। আবার চেষ্টা করুন।");
+    }
+    return;
+  }
+
+  alert(
+    "অভিনন্দন!\n" + placeName +
+    " থেকে " + pointsValue +
+    " পয়েন্ট আপনার অ্যাকাউন্টে জমা হয়েছে।"
+  );
+}
+
+function showPlaces(district, button) {
+  document.querySelectorAll(".district-card").forEach(function(card) {
+    card.classList.remove("selected");
+  });
+
+  button.classList.add("selected");
+
+  document.getElementById("placesTitle").textContent =
+    district + " — দর্শনীয় স্থান";
+
+  placesSection.classList.remove("hidden");
+  placesBox.innerHTML = "";
+
+  if (typeof placesData === "undefined" || !Array.isArray(placesData)) {
+    placesBox.textContent =
+      "পর্যটনস্থলের ডেটা লোড হয়নি। places-data.js ফাইলটি পরীক্ষা করুন।";
+    return;
+  }
+
+  const list = placesData.filter(function(place) {
+    return String(place.district).trim() === district.trim();
+  });
+
+  if (list.length === 0) {
+    placesBox.textContent =
+      "এই জেলার পর্যটনস্থলের তালিকা এখনো যুক্ত করা হয়নি।";
+    return;
+  }
+
+  const heading = document.createElement("h3");
+  heading.textContent = "মোট " + list.length + "টি দর্শনীয় স্থান";
+  heading.style.color = "#116149";
+  placesBox.appendChild(heading);
+
+  list.forEach(function(place) {
+    const item = document.createElement("button");
+    item.type = "button";
+    item.className = "place-item";
+    item.style.display = "block";
+    item.style.width = "100%";
+    item.style.textAlign = "left";
+    item.style.font = "inherit";
+    item.style.color = "#20372b";
+    item.style.background = "#fff";
+    item.style.border = "0";
+    item.style.borderBottom = "1px solid #e5eee8";
+    item.style.padding = "12px 0";
+
+    const name = document.createElement("strong");
+    name.textContent = place.name;
+
+    const points = document.createElement("div");
+    points.textContent = "⭐ " + place.points + " পয়েন্ট";
+    points.style.color = "#116149";
+
+    const hint = document.createElement("small");
+    hint.textContent = "পয়েন্ট জমা দিতে এখানে চাপ দিন";
+    hint.style.display = "block";
+    hint.style.color = "#6d7c72";
+
+    item.append(name, points, hint);
+
+    item.addEventListener("click", async function() {
+      item.disabled = true;
+      try {
+        await recordVisit(place);
+      } catch (error) {
+        console.error(error);
+        alert("একটি সমস্যা হয়েছে। ইন্টারনেট সংযোগ পরীক্ষা করে আবার চেষ্টা করুন।");
+      } finally {
+        item.disabled = false;
+      }
+    });
+
+    placesBox.appendChild(item);
+  });
+
+  placesSection.scrollIntoView({
+    behavior: "smooth",
+    block: "start"
+  });
+}
+
+divisions.forEach(function(division) {
+  const button = document.createElement("button");
+  button.type = "button";
+  button.className = "card division-card";
+
+  const photo = document.createElement("div");
+  photo.className = "photo";
+  photo.textContent = division.emoji;
+
+  const name = document.createElement("span");
+  name.className = "division-name";
+  name.textContent = division.name + " বিভাগ";
+
+  button.append(photo, name);
+  button.addEventListener("click", function() {
+    showDistricts(division);
+  });
+
+  divisionGrid.appendChild(button);
 });
-window.scrollTo(0,0);
-}
 
-function showPlaces(district,button){
-document.querySelectorAll(".district-card").forEach(function(card){card.classList.remove("selected");});
-button.classList.add("selected");
-document.getElementById("placesTitle").textContent=district+" — দর্শনীয় স্থান";
-placesSection.classList.remove("hidden");
-placesBox.innerHTML="";
-
-if(typeof placesData==="undefined" || !Array.isArray(placesData)){
-placesBox.textContent="পর্যটনস্থলের ডেটা লোড হয়নি। places-data.js ফাইলটি পরীক্ষা করুন।";
-}else{
-const list=placesData.filter(function(place){
-return String(place.district).trim()===district.trim();
-});
-if(list.length===0){
-placesBox.textContent="এই জেলার পর্যটনস্থলের তালিকা এখনো যুক্ত করা হয়নি।";
-}else{
-const heading=document.createElement("h3");
-heading.textContent="মোট "+list.length+"টি দর্শনীয় স্থান";
-heading.style.color="#116149";
-placesBox.appendChild(heading);
-list.forEach(function(place){
-const item=document.createElement("div");
-item.className="place-item";
-const name=document.createElement("strong");
-name.textContent=place.name;
-const points=document.createElement("div");
-points.textContent="⭐ পয়েন্ট: "+place.points;
-item.appendChild(name);
-item.appendChild(points);
-placesBox.appendChild(item);
-});
-}
-}
-placesSection.scrollIntoView({behavior:"smooth",block:"start"});
-}
-
-divisions.forEach(function(division){
-const button=document.createElement("button");
-button.type="button";
-button.className="card division-card";
-const photo=document.createElement("div");
-photo.className="photo";
-photo.textContent=division.emoji;
-const name=document.createElement("span");
-name.className="division-name";
-name.textContent=division.name+" বিভাগ";
-button.append(photo,name);
-button.addEventListener("click",function(){showDistricts(division);});
-divisionGrid.appendChild(button);
+backButton.addEventListener("click", function() {
+  if (!placesSection.classList.contains("hidden")) {
+    placesSection.classList.add("hidden");
+    document.querySelectorAll(".district-card").forEach(function(card) {
+      card.classList.remove("selected");
+    });
+  } else if (cameFromHome) {
+    location.href = "./index.html#divisions";
+  } else {
+    showDivisions();
+  }
 });
 
-backButton.addEventListener("click",function(){
-if(!placesSection.classList.contains("hidden")){
-placesSection.classList.add("hidden");
-document.querySelectorAll(".district-card").forEach(function(card){card.classList.remove("selected");});
-}else if(cameFromHome){
-location.href="./index.html#divisions";
-}else{
-showDivisions();
-}
-});
+if (requestedDivision) {
+  const selected = divisions.find(function(item) {
+    return item.name === requestedDivision;
+  });
 
-if(requestedDivision){
-const selected=divisions.find(function(item){return item.name===requestedDivision;});
-if(selected){showDistricts(selected);}else{showDivisions();}
-}else{
-showDivisions();
+  if (selected) {
+    showDistricts(selected);
+  } else {
+    showDivisions();
+  }
+} else {
+  showDivisions();
 }
 </script>
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </body>
 </html>
+  
